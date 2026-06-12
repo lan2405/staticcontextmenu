@@ -11,7 +11,7 @@ HRESULT Cmenuext::Initialize(PCIDLIST_ABSOLUTE pidlFolder, IDataObject* pdtobj, 
     return E_NOTIMPL;
 }
 
-HRESULT Cmenuext::QueryContextMenu(HMENU hmenu, UINT indexMenu, UINT idCmdFirst, UINT idCmdLast, UINT uFlags)
+HRESULT Cmenuext::QueryContextMenu( HMENU hmenu, UINT indexMenu, UINT idCmdFirst, UINT idCmdLast, UINT uFlags)
 {
     return E_NOTIMPL;
 }

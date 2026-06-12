@@ -56,9 +56,9 @@ END_COM_MAP()
 public:
 // IShellExtInit
 	HRESULT Initialize(
-		PCIDLIST_ABSOLUTE pidlFolder,
-		IDataObject* pdtobj,
-		HKEY   hkeyProgID
+		_In_ PCIDLIST_ABSOLUTE pidlFolder,
+		_In_ IDataObject* pdtobj,
+		_In_ HKEY   hkeyProgID
 	)override;
 	// IContextMenu
     HRESULT QueryContextMenu(
