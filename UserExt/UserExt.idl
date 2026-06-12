@@ -1,0 +1,60 @@
+﻿// UserExt.idl: UserExt 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 生成类型库(UserExt.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(a817e7a2-43fa-11d0-9e44-00aa00b6770a),
+	dual,
+	pointer_default(unique)
+]
+interface IComponentRegistrar : IDispatch
+{
+	[id(1)]	HRESULT Attach([in] BSTR bstrPath);
+	[id(2)]	HRESULT RegisterAll();
+	[id(3)]	HRESULT UnregisterAll();
+	[id(4)]	HRESULT GetComponents([out] SAFEARRAY(BSTR)* pbstrCLSIDs, [out] SAFEARRAY(BSTR)* pbstrDescriptions);
+	[id(5)]	HRESULT RegisterComponent([in] BSTR bstrCLSID);
+	[id(6)] HRESULT UnregisterComponent([in] BSTR bstrCLSID);
+};
+
+[
+	object,
+	uuid(3f1649aa-02f3-4bae-99c4-9edfa56f335e),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface Imenuext : IDispatch
+{
+};
+[
+	uuid(cba63cca-446c-4ded-a68c-3be1e7fdec41),
+	version(1.0),
+	custom(a817e7a1-43fa-11d0-9e44-00aa00b6770a,"{aea65d79-6733-450f-89fa-cabbc58c5bc4}")
+]
+library UserExtLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(aea65d79-6733-450f-89fa-cabbc58c5bc4)
+	]
+	coclass CompReg
+	{
+		[default] interface IComponentRegistrar;
+	};
+	[
+		uuid(06cd8e02-7eb0-4d7b-b32d-d6f4a356cf3e)
+	]
+	coclass menuext
+	{
+		[default] interface Imenuext;
+	};
+};
+
+import "shobjidl.idl";
