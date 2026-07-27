@@ -1,0 +1,32 @@
+HKCR
+{
+    NoRemove *
+	{
+	    NoRemove shellex
+		{
+		    NoRemove ContextMenuHandlers
+			{
+			     DllRegExt = s '{9dd00a4a-9701-4c02-813c-2fd842b33587}'
+			}
+		}
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {9dd00a4a-9701-4c02-813c-2fd842b33587} = s 'DllRegEx class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{3ba066fc-e493-451b-a26f-86b9841f1fe1}'
+			Version = s '1.0'
+			// 关键：添加权限配置
+			val AppID = s '{9dd00a4a-9701-4c02-813c-2fd842b33587}'
+			val LocalService = s 'DllRegExService'
+        
+			// 授予SYSTEM和INTERACTIVE读取权限
+			val Security = s 'D:PAI(A;;GR;;;SY)(A;;GR;;;IU)'
+		}
+	}
+}
