@@ -1,0 +1,28 @@
+HKCR
+{
+	NoRemove *
+    { 
+		NoRemove shellex
+		{
+			NoRemove ContextMenuHandlers
+			{
+				 EnvExt = s '{5eb407cd-a1d4-436a-8974-e07a41c9fff2}'
+			}
+		}
+    }
+	NoRemove CLSID
+	{
+		ForceRemove {5eb407cd-a1d4-436a-8974-e07a41c9fff2} = s 'EnvExt class'
+		{
+		    val AppID = s '{5eb407cd-a1d4-436a-8974-e07a41c9fff2}'
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{2ca39d14-34da-42e7-a60d-bddfb6546117}'
+			Version = s '1.0'
+		}
+		
+	}
+}

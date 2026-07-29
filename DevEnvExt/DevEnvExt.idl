@@ -1,0 +1,60 @@
+﻿// DevEnvExt.idl: DevEnvExt 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 生成类型库(DevEnvExt.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(a817e7a2-43fa-11d0-9e44-00aa00b6770a),
+	dual,
+	pointer_default(unique)
+]
+interface IComponentRegistrar : IDispatch
+{
+	[id(1)]	HRESULT Attach([in] BSTR bstrPath);
+	[id(2)]	HRESULT RegisterAll();
+	[id(3)]	HRESULT UnregisterAll();
+	[id(4)]	HRESULT GetComponents([out] SAFEARRAY(BSTR)* pbstrCLSIDs, [out] SAFEARRAY(BSTR)* pbstrDescriptions);
+	[id(5)]	HRESULT RegisterComponent([in] BSTR bstrCLSID);
+	[id(6)] HRESULT UnregisterComponent([in] BSTR bstrCLSID);
+};
+
+[
+	object,
+	uuid(5fa3a644-b914-4b09-a238-b9287238bd6e),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IEnvExt : IDispatch
+{
+};
+[
+	uuid(2ca39d14-34da-42e7-a60d-bddfb6546117),
+	version(1.0),
+	custom(a817e7a1-43fa-11d0-9e44-00aa00b6770a,"{9309a10f-3931-4545-bb9e-ff77bfee05cb}")
+]
+library DevEnvExtLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(9309a10f-3931-4545-bb9e-ff77bfee05cb)
+	]
+	coclass CompReg
+	{
+		[default] interface IComponentRegistrar;
+	};
+	[
+		uuid(5eb407cd-a1d4-436a-8974-e07a41c9fff2)
+	]
+	coclass EnvExt
+	{
+		[default] interface IEnvExt;
+	};
+};
+
+import "shobjidl.idl";
