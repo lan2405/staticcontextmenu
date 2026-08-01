@@ -59,70 +59,35 @@ STDMETHODIMP_(HRESULT __stdcall) CEnvExt::GetCommandString(UINT_PTR idcmd, UINT 
 
 STDMETHODIMP_(HRESULT __stdcall) CEnvExt::InvokeCommand(LPCMINVOKECOMMANDINFO lpici)
 {
-    // 1. 基本参数验证
-    if (!lpici)
-        return E_INVALIDARG;
+	// 1. 基本参数验证
+	if (!lpici)
+		return E_INVALIDARG;
 
-    // 2. 检查是否通过谓词字符串调用
-    if (HIWORD(lpici->lpVerb) != 0)
-    {
-        // 根据fMask判断使用ANSI还是Unicode
-        if (lpici->fMask & CMIC_MASK_UNICODE)
-        {
-            int i = 0;
-            for (int i = CMD_VisioStudio; i < CMD_END; ++i)
-            {
-                if (wcscmp((LPCWSTR)lpici->lpVerb, g_CommandRegistry[i].menuText) == 0)
-                {
-                    RunCommand(i);
-                    ++i;
-                    return S_OK;
-                }
-            }
-            if (i < 0)return E_INVALIDARG;
-        }
-        else
-        {
-            int i = 0;
-            for (int i = CMD_VisioStudio; i < CMD_END; ++i)
-            {
-                if (wcscmp((LPCWSTR)lpici->lpVerb, g_CommandRegistry[i].menuText) == 0)
-                {
-                    RunCommand(i);
-                    ++i;
-                    return S_OK;
-                }
-            }
-        }
-
-        // 字符串不匹配时明确返回错误
-        return E_INVALIDARG;
-    }
-    // 3. 检查是否通过命令ID调用
-    else
-    {
-        switch (LOWORD(lpici->lpVerb))
-        {
-        case CMD_VisioStudio:
-        case CMD_VSCode:
-        case CMD_Git:
-        case CMD_Toolbox:
-        case CMD_WSL:
-        case CMD_PowerShell:
-        case CMD_PowerShell_Admin:
-        case CMD_PowerShell_System:
-        case CMD_WindowsTerminal:
-            // 执行对应的环境命令
-            RunCommand(static_cast<EnvCmd>(LOWORD(lpici->lpVerb)));
-            return S_OK;
-        default:
-            return E_INVALIDARG;
-        }
-    }
+	switch (LOWORD(lpici->lpVerb))
+	{
+	case CMD_VisioStudio:
+	case CMD_VSCode:
+	case CMD_WSL:
+	case CMD_PowerShell:
+    case CMD_WindowsTerminal:
+        // 执行对应的环境命令
+        RunCommandPath(static_cast<EnvCmd>(LOWORD(lpici->lpVerb)));
+        return S_OK;
+	case CMD_PowerShell_Admin:
+	case CMD_PowerShell_System:
+        // 执行对应的环境命令
+        RunCommandPathAuth(static_cast<EnvCmd>(LOWORD(lpici->lpVerb)));
+        return S_OK;
+    case CMD_Toolbox:
+        RunCommandOnce(static_cast<EnvCmd>(LOWORD(lpici->lpVerb)));
+        return S_OK;
+	default:
+		return E_INVALIDARG;
+	}
 
 
 
-    return S_OK;
+	return S_OK;
 }
 
 STDMETHODIMP_(HRESULT __stdcall) CEnvExt::QueryContextMenu(HMENU hmenu, UINT indexMenu, UINT idCmdFirst, UINT idCmdLast, UINT uFlags)
@@ -181,8 +146,43 @@ void CEnvExt::initMenu(HMENU hmenu, UINT indexMenu, UINT idCmdFirst)
     InsertMenuItem(hmenu, indexMenu, TRUE, (LPCMENUITEMINFO)&mainItem);
 }
 
-void CEnvExt::RunCommand(int cmd)
+
+void CEnvExt::RunCommandOnce(int cmdid)
 {
+	HINSTANCE result = ShellExecute(
+		NULL,           // 父窗口句柄（NULL 表示无父窗口）
+		_T("open"),     // 操作类型（"open" 表示执行程序）
+		g_CommandRegistry[cmdid].commandPath, // 目标程序
+		NULL,        // 命令行参数
+        m_folderPath.c_str(),            // NULL为默认工作目录
+		SW_SHOW         // 显示窗口
+	);
+
+}
+
+void CEnvExt::RunCommandPathAuth(int cmdid)
+{
+    HINSTANCE result = ShellExecute(
+        NULL,           // 父窗口句柄（NULL 表示无父窗口）
+        _T("runas"),     // 操作类型（"open" 表示执行程序）
+        g_CommandRegistry[cmdid].commandPath, // 目标程序
+        g_CommandRegistry[cmdid].arguments,        // 命令行参数
+        m_folderPath.c_str(),            // NULL为默认工作目录
+        SW_SHOW         // 显示窗口
+    );
+
+}
+
+void CEnvExt::RunCommandPath(int cmdid)
+{
+    HINSTANCE result = ShellExecute(
+        NULL,           // 父窗口句柄（NULL 表示无父窗口）
+        _T("open"),     // 操作类型（"open" 表示执行程序）
+        g_CommandRegistry[cmdid].commandPath, // 目标程序
+        g_CommandRegistry[cmdid].arguments,         // 命令行参数
+        m_folderPath.c_str(),           // NULL为默认工作目录
+        SW_SHOW         // 显示窗口
+    );
 
 
 }

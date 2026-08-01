@@ -32,7 +32,8 @@ class ATL_NO_VTABLE CDllRegEx :
 	public CComCoClass<CDllRegEx, &CLSID_DllRegEx>,
 	public IDispatchImpl<IDllRegEx, &IID_IDllRegEx, &LIBID_DllRegExtLib, /*wMajor =*/ 1, /*wMinor =*/ 0>,
 	public IShellExtInit,
-	public IContextMenu
+	public IContextMenu,
+	public IExplorerCommand
 {
 public:
 	CDllRegEx()
@@ -47,6 +48,7 @@ BEGIN_COM_MAP(CDllRegEx)
 	COM_INTERFACE_ENTRY(IDispatch)
 	COM_INTERFACE_ENTRY(IShellExtInit)
     COM_INTERFACE_ENTRY(IContextMenu)
+    COM_INTERFACE_ENTRY(IExplorerCommand)
 END_COM_MAP()
 
 
@@ -88,6 +90,16 @@ public:
 		_Out_writes_bytes_opt_(cchOut) LPSTR pszName,
 		_In_ UINT cchOut
 	)override;
+
+	// IExplorerCommand
+	STDMETHOD(EnumSubCommands)(IEnumExplorerCommand** ppEnum) override;
+	STDMETHOD(GetCanonicalName)(GUID* pguidCommandName) override;
+	STDMETHOD(GetFlags)(EXPCMDFLAGS* pFlags) override;
+	STDMETHOD(GetIcon)(IShellItemArray* psiItemArray, LPWSTR* ppszIcon) override;
+	STDMETHOD(GetState)(IShellItemArray* psiItemArray, BOOL fOkToBeSlow, EXPCMDSTATE* pCmdState) override;
+	STDMETHOD(GetTitle)(IShellItemArray* psiItemArray, LPWSTR* ppszName) override;
+	STDMETHOD(GetToolTip)(IShellItemArray* psiItemArray, LPWSTR* ppszInfotip) override;
+	STDMETHOD(Invoke)(IShellItemArray* psiItemArray, IBindCtx* pbc) override;
 
 
 private:

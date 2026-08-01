@@ -20,7 +20,6 @@ enum EnvCmd {
 	CMD_BEGIN,
 	CMD_VisioStudio,
 	CMD_VSCode,
-	CMD_Git,
 	CMD_Toolbox,
 	CMD_WSL,
 	CMD_PowerShell,
@@ -36,8 +35,8 @@ typedef struct {
 	const TCHAR* menuText;      ///< 菜单显示文本
 	const TCHAR* commandPath;    ///< 可执行文件路径 (e.g., "devenv.exe")
 	const TCHAR* arguments;      ///<  启动参数 (e.g., "/path/to/project.sln")
-	BOOL requiresAdmin;         ///< 是否需要管理员权限
-	BOOL isSystemLevel;        ///< 是否为系统级命令 (如 PowerShell_System)
+	BOOL requiresAdmin;         ///< 是否需要管理员权限 冗余设计未使用
+	BOOL isSystemLevel;        ///< 是否为系统级命令 (如 PowerShell_System) 冗余设计未使用
 } CommandInfo;
 
 // 定义菜单文本数组，顺序必须与 enum EnvCmd 严格对应
@@ -59,15 +58,78 @@ typedef struct {
 // 用结构体数组统一存储所有命令信息(关键改进！)
 const CommandInfo g_CommandRegistry[CMD_END] = {
 	// 每行显式设置CmdId，彻底解耦枚举值与数组索引
-	{ CMD_VisioStudio,        _T("使用 Visual Studio 打开(&V)"), _T("devenv.exe"),        _T("/path/to/project.sln"), FALSE, FALSE },
-	{ CMD_VSCode,             _T("通过 Code 打开(&C)"),          _T("code.exe"),          _T("."),                    FALSE, FALSE },
-	{ CMD_Git,                _T("Open Git Bash here"),         _T("git-bash.exe"),      _T("--cd=%V"),              FALSE, FALSE },
-	{ CMD_Toolbox,            _T("JetBrains Toolbox"),          _T("toolbox.exe"),       _T(""),                     FALSE, FALSE },
-	{ CMD_WSL,                _T("在此处打开 Linux shell(&L)"),  _T("wsl.exe"),           _T(""),                     FALSE, FALSE },
-	{ CMD_PowerShell,         _T("PowerShell"),                _T("powershell.exe"),    _T("-NoExit -Command cd '%V'"), FALSE, FALSE },
-	{ CMD_PowerShell_Admin,   _T("PowerShell (管理员)"),        _T("powershell.exe"),    _T("-NoExit -Command cd '%V'"), TRUE,  FALSE },
-	{ CMD_PowerShell_System,  _T("PowerShell (系统)"),          _T("powershell.exe"),    _T("-NoExit -Command cd '%V'"), TRUE,  TRUE  },
-	{ CMD_WindowsTerminal,    _T("Windows Terminal"),          _T("wt.exe"),            _T(""),                     FALSE, FALSE }
+    {
+		CMD_BEGIN,    // 占位0规范数组
+		NULL,
+		NULL,
+		NULL,
+		FALSE,
+		FALSE
+	},
+	{
+		CMD_VisioStudio,
+		_T("使用 Visual Studio 打开(&V)"),
+		_T("C:\\Program Files (x86)\\Common Files\\Microsoft Shared\\MSEnv\\VSLauncher.exe"),
+		_T("source:ExplorerBackground"),
+		FALSE,
+		FALSE
+	},
+	{
+		CMD_VSCode,
+		_T("通过 Code 打开(&C)"),
+		_T("D:\\Program Files\\Microsoft VS Code\\Code.exe"),
+		_T(""),
+		FALSE,
+		FALSE
+	},
+	{
+		CMD_Toolbox,
+		_T("JetBrains Toolbox"),
+		_T("C:\\Users\\Dallas\\AppData\\Local\\JetBrains\\Toolbox\\bin\\jetbrains-toolbox.exe"),
+		_T(""),
+		FALSE,
+		FALSE
+	},
+	{
+		CMD_WSL,
+		_T("在此处打开 Linux shell(&L)"),
+		_T("wsl.exe "),
+		_T(""),
+		FALSE,
+		FALSE
+	},
+	{
+		CMD_PowerShell,
+		_T("PowerShell"),
+		_T("powershell.exe"),
+		_T("-NoExit -Command cd "),
+		FALSE,
+		FALSE
+	},
+	{
+		CMD_PowerShell_Admin,
+		_T("PowerShell (管理员)"),
+		_T("powershell.exe"),
+		_T("-NoExit -Command cd "),
+		TRUE,
+		FALSE
+	},
+	{
+		CMD_PowerShell_System,
+		_T("PowerShell (系统)"),
+		_T("psexec.exe"),
+		_T("-s powershell -w Normal "),
+		TRUE,
+		TRUE
+	},
+	{
+		CMD_WindowsTerminal,
+		_T("Windows Terminal"),
+		_T("wt.exe"),
+		_T(""),
+		FALSE,
+		FALSE
+	}
 };
 
 
@@ -138,7 +200,9 @@ private:
 	std::wstring m_folderPath;
 
 	void initMenu(HMENU hmenu, UINT indexMenu, UINT idCmdFirst);
-	void RunCommand(int cmd);
+	void RunCommandOnce(int cmdid);
+	void RunCommandPathAuth(int cmdid);
+    void RunCommandPath(int cmdid);
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(EnvExt), CEnvExt)

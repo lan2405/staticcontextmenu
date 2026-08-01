@@ -145,6 +145,50 @@ STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetCommandString(UINT_PTR idcmd, UIN
 	return S_OK;
 }
 
+STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::EnumSubCommands(IEnumExplorerCommand** ppEnum)
+{
+    return E_NOTIMPL;
+}
+
+STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetCanonicalName(GUID* pguidCommandName)
+{
+    *pguidCommandName = GetObjectCLSID();
+    return S_OK;
+}
+
+STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetFlags(EXPCMDFLAGS* pFlags)
+{
+    *pFlags = ECF_DEFAULT;
+    return S_OK;
+}
+
+STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetIcon(IShellItemArray* psiItemArray, LPWSTR* ppszIcon)
+{
+    return E_NOTIMPL;
+}
+
+STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetState(IShellItemArray* psiItemArray, BOOL fOkToBeSlow, EXPCMDSTATE* pCmdState)
+{
+    *pCmdState = ECS_ENABLED;
+    return S_OK;
+}
+
+STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetTitle(IShellItemArray* psiItemArray, LPWSTR* ppszName)
+{
+    std::wstring titlename = _T("testreg");
+    return SHStrDup(titlename.c_str(), ppszName);
+}
+
+STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetToolTip(IShellItemArray* psiItemArray, LPWSTR* ppszInfotip)
+{
+    return E_NOTIMPL;
+}
+
+STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::Invoke(IShellItemArray* psiItemArray, IBindCtx* pbc)
+{
+    return E_NOTIMPL;
+}
+
 void CDllRegEx::initRegMenu(HMENU hmenu, UINT indexMenu, UINT idCmdFirst)
 {
     HMENU uhmenu = CreatePopupMenu();

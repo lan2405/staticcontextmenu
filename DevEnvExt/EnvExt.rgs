@@ -1,15 +1,5 @@
 HKCR
 {
-	NoRemove *
-    { 
-		NoRemove shellex
-		{
-			NoRemove ContextMenuHandlers
-			{
-				 EnvExt = s '{5eb407cd-a1d4-436a-8974-e07a41c9fff2}'
-			}
-		}
-    }
 	NoRemove CLSID
 	{
 		ForceRemove {5eb407cd-a1d4-436a-8974-e07a41c9fff2} = s 'EnvExt class'
@@ -25,4 +15,27 @@ HKCR
 		}
 		
 	}
+}
+HKEY_CURRENT_USER
+{
+    Software
+    {
+        Classes
+        {
+            Directory
+            {
+                Background
+                {
+				    NoRemove shellex
+                    {
+                        NoRemove ContextMenuHandlers
+                        {
+                            EnvExt = s '{5eb407cd-a1d4-436a-8974-e07a41c9fff2}'
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
 }
