@@ -6,7 +6,16 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Folder Name="/NewFolder1/" />
+  <Folder Name="/test/">
+    <Project Path="test/Sample/Sample.vcxproj" Id="cb7b4a86-fdf1-32e7-6c7f-6aa99a89fdcb">
+      <Platform Solution="*|ARM" Project="x64" />
+      <Platform Solution="*|ARM64" Project="x64" />
+    </Project>
+  </Folder>
+  <Project Path="ATLProject1/ATLProject1.vcxproj">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
   <Project Path="DevEnvExt/DevEnvExt.vcxproj">
     <Platform Solution="*|ARM" Project="x64" />
     <Platform Solution="*|ARM64" Project="x64" />
@@ -20,10 +29,6 @@
     <Platform Solution="*|ARM64" Project="x64" />
   </Project>
   <Project Path="Resource/Resource.vcxproj">
-    <Platform Solution="*|ARM" Project="x64" />
-    <Platform Solution="*|ARM64" Project="x64" />
-  </Project>
-  <Project Path="Sample/Sample.vcxproj">
     <Platform Solution="*|ARM" Project="x64" />
     <Platform Solution="*|ARM64" Project="x64" />
   </Project>
