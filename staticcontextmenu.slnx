@@ -1,7 +1,37 @@
 <Solution>
   <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM" />
+    <Platform Name="ARM64" />
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="I:/repos/staticcontextmenu/UserExt/UserExt.vcxproj" Id="1721bb4e-3c27-fa93-6553-f791478cd745" />
+  <Folder Name="/NewFolder1/" />
+  <Project Path="DevEnvExt/DevEnvExt.vcxproj">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
+  <Project Path="DllRegExt/DllRegExt.vcxproj">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
+  <Project Path="I:/repos/staticcontextmenu/UserExt/UserExt.vcxproj" Id="1721bb4e-3c27-fa93-6553-f791478cd745">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
+  <Project Path="Resource/Resource.vcxproj">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
+  <Project Path="Sample/Sample.vcxproj">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
+  <Project Path="space/space.vcxproj" Id="e88c1816-be67-499d-8c68-345144a6c284">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
+  <Project Path="WapProjTemplate1/WapProjTemplate1.wapproj" Type="c7167f0d-bc9f-4e6e-afe1-012c56b48db5" Id="b1a97474-5d39-4852-a1c6-ed52833aa36e">
+    <Deploy />
+  </Project>
 </Solution>

@@ -43,7 +43,13 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="menuext.h">
+    <ClInclude Include="ExplorerCmd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="constinfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SubIExCmdRoot.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -66,7 +72,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="menuext.cpp">
+    <ClCompile Include="ExplorerCmd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SubIExCmdRoot.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -82,7 +91,10 @@
     <None Include="UserExt.def">
       <Filter>源文件</Filter>
     </None>
-    <None Include="menuext.rgs">
+    <None Include="ExplorerCmd.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="SubIExCmdRoot.rgs">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
@@ -90,5 +102,10 @@
     <Midl Include="UserExt.idl">
       <Filter>源文件</Filter>
     </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Icon_file\mainmenu.ico">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

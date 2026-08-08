@@ -66,6 +66,13 @@ typedef interface IDllRegEx IDllRegEx;
 #endif 	/* __IDllRegEx_FWD_DEFINED__ */
 
 
+#ifndef __ISubIExCmdMenu_FWD_DEFINED__
+#define __ISubIExCmdMenu_FWD_DEFINED__
+typedef interface ISubIExCmdMenu ISubIExCmdMenu;
+
+#endif 	/* __ISubIExCmdMenu_FWD_DEFINED__ */
+
+
 #ifndef __CompReg_FWD_DEFINED__
 #define __CompReg_FWD_DEFINED__
 
@@ -88,6 +95,18 @@ typedef struct DllRegEx DllRegEx;
 #endif /* __cplusplus */
 
 #endif 	/* __DllRegEx_FWD_DEFINED__ */
+
+
+#ifndef __SubIExCmdMenu_FWD_DEFINED__
+#define __SubIExCmdMenu_FWD_DEFINED__
+
+#ifdef __cplusplus
+typedef class SubIExCmdMenu SubIExCmdMenu;
+#else
+typedef struct SubIExCmdMenu SubIExCmdMenu;
+#endif /* __cplusplus */
+
+#endif 	/* __SubIExCmdMenu_FWD_DEFINED__ */
 
 
 /* header files for imported files */
@@ -418,6 +437,133 @@ EXTERN_C const IID IID_IDllRegEx;
 #endif 	/* __IDllRegEx_INTERFACE_DEFINED__ */
 
 
+#ifndef __ISubIExCmdMenu_INTERFACE_DEFINED__
+#define __ISubIExCmdMenu_INTERFACE_DEFINED__
+
+/* interface ISubIExCmdMenu */
+/* [unique][nonextensible][dual][uuid][object] */ 
+
+
+EXTERN_C const IID IID_ISubIExCmdMenu;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+    
+    MIDL_INTERFACE("14af87d8-3ff9-4261-aad8-c384b6740af9")
+    ISubIExCmdMenu : public IDispatch
+    {
+    public:
+    };
+    
+    
+#else 	/* C style interface */
+
+    typedef struct ISubIExCmdMenuVtbl
+    {
+        BEGIN_INTERFACE
+        
+        DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+            ISubIExCmdMenu * This,
+            /* [in] */ REFIID riid,
+            /* [annotation][iid_is][out] */ 
+            _COM_Outptr_  void **ppvObject);
+        
+        DECLSPEC_XFGVIRT(IUnknown, AddRef)
+        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+            ISubIExCmdMenu * This);
+        
+        DECLSPEC_XFGVIRT(IUnknown, Release)
+        ULONG ( STDMETHODCALLTYPE *Release )( 
+            ISubIExCmdMenu * This);
+        
+        DECLSPEC_XFGVIRT(IDispatch, GetTypeInfoCount)
+        HRESULT ( STDMETHODCALLTYPE *GetTypeInfoCount )( 
+            ISubIExCmdMenu * This,
+            /* [out] */ UINT *pctinfo);
+        
+        DECLSPEC_XFGVIRT(IDispatch, GetTypeInfo)
+        HRESULT ( STDMETHODCALLTYPE *GetTypeInfo )( 
+            ISubIExCmdMenu * This,
+            /* [in] */ UINT iTInfo,
+            /* [in] */ LCID lcid,
+            /* [out] */ ITypeInfo **ppTInfo);
+        
+        DECLSPEC_XFGVIRT(IDispatch, GetIDsOfNames)
+        HRESULT ( STDMETHODCALLTYPE *GetIDsOfNames )( 
+            ISubIExCmdMenu * This,
+            /* [in] */ REFIID riid,
+            /* [size_is][in] */ LPOLESTR *rgszNames,
+            /* [range][in] */ UINT cNames,
+            /* [in] */ LCID lcid,
+            /* [size_is][out] */ DISPID *rgDispId);
+        
+        DECLSPEC_XFGVIRT(IDispatch, Invoke)
+        /* [local] */ HRESULT ( STDMETHODCALLTYPE *Invoke )( 
+            ISubIExCmdMenu * This,
+            /* [annotation][in] */ 
+            _In_  DISPID dispIdMember,
+            /* [annotation][in] */ 
+            _In_  REFIID riid,
+            /* [annotation][in] */ 
+            _In_  LCID lcid,
+            /* [annotation][in] */ 
+            _In_  WORD wFlags,
+            /* [annotation][out][in] */ 
+            _In_  DISPPARAMS *pDispParams,
+            /* [annotation][out] */ 
+            _Out_opt_  VARIANT *pVarResult,
+            /* [annotation][out] */ 
+            _Out_opt_  EXCEPINFO *pExcepInfo,
+            /* [annotation][out] */ 
+            _Out_opt_  UINT *puArgErr);
+        
+        END_INTERFACE
+    } ISubIExCmdMenuVtbl;
+
+    interface ISubIExCmdMenu
+    {
+        CONST_VTBL struct ISubIExCmdMenuVtbl *lpVtbl;
+    };
+
+    
+
+#ifdef COBJMACROS
+
+
+#define ISubIExCmdMenu_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define ISubIExCmdMenu_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define ISubIExCmdMenu_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define ISubIExCmdMenu_GetTypeInfoCount(This,pctinfo)	\
+    ( (This)->lpVtbl -> GetTypeInfoCount(This,pctinfo) ) 
+
+#define ISubIExCmdMenu_GetTypeInfo(This,iTInfo,lcid,ppTInfo)	\
+    ( (This)->lpVtbl -> GetTypeInfo(This,iTInfo,lcid,ppTInfo) ) 
+
+#define ISubIExCmdMenu_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)	\
+    ( (This)->lpVtbl -> GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId) ) 
+
+#define ISubIExCmdMenu_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)	\
+    ( (This)->lpVtbl -> Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr) ) 
+
+
+#endif /* COBJMACROS */
+
+
+#endif 	/* C style interface */
+
+
+
+
+#endif 	/* __ISubIExCmdMenu_INTERFACE_DEFINED__ */
+
+
 
 #ifndef __DllRegExtLib_LIBRARY_DEFINED__
 #define __DllRegExtLib_LIBRARY_DEFINED__
@@ -442,6 +588,14 @@ EXTERN_C const CLSID CLSID_DllRegEx;
 
 class DECLSPEC_UUID("9dd00a4a-9701-4c02-813c-2fd842b33587")
 DllRegEx;
+#endif
+
+EXTERN_C const CLSID CLSID_SubIExCmdMenu;
+
+#ifdef __cplusplus
+
+class DECLSPEC_UUID("8ccde13c-213f-4eac-ac9e-c35253dcee96")
+SubIExCmdMenu;
 #endif
 #endif /* __DllRegExtLib_LIBRARY_DEFINED__ */
 

@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {8ccde13c-213f-4eac-ac9e-c35253dcee96} = s 'SubIExCmdMenu class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{3ba066fc-e493-451b-a26f-86b9841f1fe1}'
+			Version = s '1.0'
+		}
+	}
+}

@@ -59,11 +59,18 @@ typedef interface IComponentRegistrar IComponentRegistrar;
 #endif 	/* __IComponentRegistrar_FWD_DEFINED__ */
 
 
-#ifndef __Imenuext_FWD_DEFINED__
-#define __Imenuext_FWD_DEFINED__
-typedef interface Imenuext Imenuext;
+#ifndef __IExplorerCmd_FWD_DEFINED__
+#define __IExplorerCmd_FWD_DEFINED__
+typedef interface IExplorerCmd IExplorerCmd;
 
-#endif 	/* __Imenuext_FWD_DEFINED__ */
+#endif 	/* __IExplorerCmd_FWD_DEFINED__ */
+
+
+#ifndef __ISubIExCmdRoot_FWD_DEFINED__
+#define __ISubIExCmdRoot_FWD_DEFINED__
+typedef interface ISubIExCmdRoot ISubIExCmdRoot;
+
+#endif 	/* __ISubIExCmdRoot_FWD_DEFINED__ */
 
 
 #ifndef __CompReg_FWD_DEFINED__
@@ -78,16 +85,28 @@ typedef struct CompReg CompReg;
 #endif 	/* __CompReg_FWD_DEFINED__ */
 
 
-#ifndef __menuext_FWD_DEFINED__
-#define __menuext_FWD_DEFINED__
+#ifndef __ExplorerCmd_FWD_DEFINED__
+#define __ExplorerCmd_FWD_DEFINED__
 
 #ifdef __cplusplus
-typedef class menuext menuext;
+typedef class ExplorerCmd ExplorerCmd;
 #else
-typedef struct menuext menuext;
+typedef struct ExplorerCmd ExplorerCmd;
 #endif /* __cplusplus */
 
-#endif 	/* __menuext_FWD_DEFINED__ */
+#endif 	/* __ExplorerCmd_FWD_DEFINED__ */
+
+
+#ifndef __SubIExCmdRoot_FWD_DEFINED__
+#define __SubIExCmdRoot_FWD_DEFINED__
+
+#ifdef __cplusplus
+typedef class SubIExCmdRoot SubIExCmdRoot;
+#else
+typedef struct SubIExCmdRoot SubIExCmdRoot;
+#endif /* __cplusplus */
+
+#endif 	/* __SubIExCmdRoot_FWD_DEFINED__ */
 
 
 /* header files for imported files */
@@ -291,19 +310,19 @@ EXTERN_C const IID IID_IComponentRegistrar;
 #endif 	/* __IComponentRegistrar_INTERFACE_DEFINED__ */
 
 
-#ifndef __Imenuext_INTERFACE_DEFINED__
-#define __Imenuext_INTERFACE_DEFINED__
+#ifndef __IExplorerCmd_INTERFACE_DEFINED__
+#define __IExplorerCmd_INTERFACE_DEFINED__
 
-/* interface Imenuext */
+/* interface IExplorerCmd */
 /* [unique][nonextensible][dual][uuid][object] */ 
 
 
-EXTERN_C const IID IID_Imenuext;
+EXTERN_C const IID IID_IExplorerCmd;
 
 #if defined(__cplusplus) && !defined(CINTERFACE)
     
-    MIDL_INTERFACE("3f1649aa-02f3-4bae-99c4-9edfa56f335e")
-    Imenuext : public IDispatch
+    MIDL_INTERFACE("2d6465c6-f7db-4b6a-a456-b76be89b794e")
+    IExplorerCmd : public IDispatch
     {
     public:
     };
@@ -311,40 +330,40 @@ EXTERN_C const IID IID_Imenuext;
     
 #else 	/* C style interface */
 
-    typedef struct ImenuextVtbl
+    typedef struct IExplorerCmdVtbl
     {
         BEGIN_INTERFACE
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            Imenuext * This,
+            IExplorerCmd * This,
             /* [in] */ REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            Imenuext * This);
+            IExplorerCmd * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            Imenuext * This);
+            IExplorerCmd * This);
         
         DECLSPEC_XFGVIRT(IDispatch, GetTypeInfoCount)
         HRESULT ( STDMETHODCALLTYPE *GetTypeInfoCount )( 
-            Imenuext * This,
+            IExplorerCmd * This,
             /* [out] */ UINT *pctinfo);
         
         DECLSPEC_XFGVIRT(IDispatch, GetTypeInfo)
         HRESULT ( STDMETHODCALLTYPE *GetTypeInfo )( 
-            Imenuext * This,
+            IExplorerCmd * This,
             /* [in] */ UINT iTInfo,
             /* [in] */ LCID lcid,
             /* [out] */ ITypeInfo **ppTInfo);
         
         DECLSPEC_XFGVIRT(IDispatch, GetIDsOfNames)
         HRESULT ( STDMETHODCALLTYPE *GetIDsOfNames )( 
-            Imenuext * This,
+            IExplorerCmd * This,
             /* [in] */ REFIID riid,
             /* [size_is][in] */ LPOLESTR *rgszNames,
             /* [range][in] */ UINT cNames,
@@ -353,7 +372,7 @@ EXTERN_C const IID IID_Imenuext;
         
         DECLSPEC_XFGVIRT(IDispatch, Invoke)
         /* [local] */ HRESULT ( STDMETHODCALLTYPE *Invoke )( 
-            Imenuext * This,
+            IExplorerCmd * This,
             /* [annotation][in] */ 
             _In_  DISPID dispIdMember,
             /* [annotation][in] */ 
@@ -372,11 +391,11 @@ EXTERN_C const IID IID_Imenuext;
             _Out_opt_  UINT *puArgErr);
         
         END_INTERFACE
-    } ImenuextVtbl;
+    } IExplorerCmdVtbl;
 
-    interface Imenuext
+    interface IExplorerCmd
     {
-        CONST_VTBL struct ImenuextVtbl *lpVtbl;
+        CONST_VTBL struct IExplorerCmdVtbl *lpVtbl;
     };
 
     
@@ -384,26 +403,26 @@ EXTERN_C const IID IID_Imenuext;
 #ifdef COBJMACROS
 
 
-#define Imenuext_QueryInterface(This,riid,ppvObject)	\
+#define IExplorerCmd_QueryInterface(This,riid,ppvObject)	\
     ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
 
-#define Imenuext_AddRef(This)	\
+#define IExplorerCmd_AddRef(This)	\
     ( (This)->lpVtbl -> AddRef(This) ) 
 
-#define Imenuext_Release(This)	\
+#define IExplorerCmd_Release(This)	\
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define Imenuext_GetTypeInfoCount(This,pctinfo)	\
+#define IExplorerCmd_GetTypeInfoCount(This,pctinfo)	\
     ( (This)->lpVtbl -> GetTypeInfoCount(This,pctinfo) ) 
 
-#define Imenuext_GetTypeInfo(This,iTInfo,lcid,ppTInfo)	\
+#define IExplorerCmd_GetTypeInfo(This,iTInfo,lcid,ppTInfo)	\
     ( (This)->lpVtbl -> GetTypeInfo(This,iTInfo,lcid,ppTInfo) ) 
 
-#define Imenuext_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)	\
+#define IExplorerCmd_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)	\
     ( (This)->lpVtbl -> GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId) ) 
 
-#define Imenuext_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)	\
+#define IExplorerCmd_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)	\
     ( (This)->lpVtbl -> Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr) ) 
 
 
@@ -415,7 +434,134 @@ EXTERN_C const IID IID_Imenuext;
 
 
 
-#endif 	/* __Imenuext_INTERFACE_DEFINED__ */
+#endif 	/* __IExplorerCmd_INTERFACE_DEFINED__ */
+
+
+#ifndef __ISubIExCmdRoot_INTERFACE_DEFINED__
+#define __ISubIExCmdRoot_INTERFACE_DEFINED__
+
+/* interface ISubIExCmdRoot */
+/* [unique][nonextensible][dual][uuid][object] */ 
+
+
+EXTERN_C const IID IID_ISubIExCmdRoot;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+    
+    MIDL_INTERFACE("28c5fa1a-e446-4a52-ba2d-c15dcdd8dbd8")
+    ISubIExCmdRoot : public IDispatch
+    {
+    public:
+    };
+    
+    
+#else 	/* C style interface */
+
+    typedef struct ISubIExCmdRootVtbl
+    {
+        BEGIN_INTERFACE
+        
+        DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+            ISubIExCmdRoot * This,
+            /* [in] */ REFIID riid,
+            /* [annotation][iid_is][out] */ 
+            _COM_Outptr_  void **ppvObject);
+        
+        DECLSPEC_XFGVIRT(IUnknown, AddRef)
+        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+            ISubIExCmdRoot * This);
+        
+        DECLSPEC_XFGVIRT(IUnknown, Release)
+        ULONG ( STDMETHODCALLTYPE *Release )( 
+            ISubIExCmdRoot * This);
+        
+        DECLSPEC_XFGVIRT(IDispatch, GetTypeInfoCount)
+        HRESULT ( STDMETHODCALLTYPE *GetTypeInfoCount )( 
+            ISubIExCmdRoot * This,
+            /* [out] */ UINT *pctinfo);
+        
+        DECLSPEC_XFGVIRT(IDispatch, GetTypeInfo)
+        HRESULT ( STDMETHODCALLTYPE *GetTypeInfo )( 
+            ISubIExCmdRoot * This,
+            /* [in] */ UINT iTInfo,
+            /* [in] */ LCID lcid,
+            /* [out] */ ITypeInfo **ppTInfo);
+        
+        DECLSPEC_XFGVIRT(IDispatch, GetIDsOfNames)
+        HRESULT ( STDMETHODCALLTYPE *GetIDsOfNames )( 
+            ISubIExCmdRoot * This,
+            /* [in] */ REFIID riid,
+            /* [size_is][in] */ LPOLESTR *rgszNames,
+            /* [range][in] */ UINT cNames,
+            /* [in] */ LCID lcid,
+            /* [size_is][out] */ DISPID *rgDispId);
+        
+        DECLSPEC_XFGVIRT(IDispatch, Invoke)
+        /* [local] */ HRESULT ( STDMETHODCALLTYPE *Invoke )( 
+            ISubIExCmdRoot * This,
+            /* [annotation][in] */ 
+            _In_  DISPID dispIdMember,
+            /* [annotation][in] */ 
+            _In_  REFIID riid,
+            /* [annotation][in] */ 
+            _In_  LCID lcid,
+            /* [annotation][in] */ 
+            _In_  WORD wFlags,
+            /* [annotation][out][in] */ 
+            _In_  DISPPARAMS *pDispParams,
+            /* [annotation][out] */ 
+            _Out_opt_  VARIANT *pVarResult,
+            /* [annotation][out] */ 
+            _Out_opt_  EXCEPINFO *pExcepInfo,
+            /* [annotation][out] */ 
+            _Out_opt_  UINT *puArgErr);
+        
+        END_INTERFACE
+    } ISubIExCmdRootVtbl;
+
+    interface ISubIExCmdRoot
+    {
+        CONST_VTBL struct ISubIExCmdRootVtbl *lpVtbl;
+    };
+
+    
+
+#ifdef COBJMACROS
+
+
+#define ISubIExCmdRoot_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define ISubIExCmdRoot_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define ISubIExCmdRoot_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define ISubIExCmdRoot_GetTypeInfoCount(This,pctinfo)	\
+    ( (This)->lpVtbl -> GetTypeInfoCount(This,pctinfo) ) 
+
+#define ISubIExCmdRoot_GetTypeInfo(This,iTInfo,lcid,ppTInfo)	\
+    ( (This)->lpVtbl -> GetTypeInfo(This,iTInfo,lcid,ppTInfo) ) 
+
+#define ISubIExCmdRoot_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)	\
+    ( (This)->lpVtbl -> GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId) ) 
+
+#define ISubIExCmdRoot_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)	\
+    ( (This)->lpVtbl -> Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr) ) 
+
+
+#endif /* COBJMACROS */
+
+
+#endif 	/* C style interface */
+
+
+
+
+#endif 	/* __ISubIExCmdRoot_INTERFACE_DEFINED__ */
 
 
 
@@ -436,12 +582,20 @@ class DECLSPEC_UUID("aea65d79-6733-450f-89fa-cabbc58c5bc4")
 CompReg;
 #endif
 
-EXTERN_C const CLSID CLSID_menuext;
+EXTERN_C const CLSID CLSID_ExplorerCmd;
 
 #ifdef __cplusplus
 
-class DECLSPEC_UUID("06cd8e02-7eb0-4d7b-b32d-d6f4a356cf3e")
-menuext;
+class DECLSPEC_UUID("9f0bd2d5-02f6-4672-8d3a-4512cadecc6f")
+ExplorerCmd;
+#endif
+
+EXTERN_C const CLSID CLSID_SubIExCmdRoot;
+
+#ifdef __cplusplus
+
+class DECLSPEC_UUID("89d42831-4128-4aba-a79b-eb734e8e8dc1")
+SubIExCmdRoot;
 #endif
 #endif /* __UserExtLib_LIBRARY_DEFINED__ */
 

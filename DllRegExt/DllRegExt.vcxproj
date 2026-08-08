@@ -233,12 +233,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="compreg.h" />
+    <ClInclude Include="constinfo.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="DllRegEx.h" />
     <ClInclude Include="DllRegExt_i.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SubIExCmdMenu.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="xdlldata.h" />
   </ItemGroup>
@@ -280,6 +282,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SubIExCmdMenu.cpp" />
     <ClCompile Include="xdlldata.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
@@ -298,6 +301,7 @@
     <None Include="DllRegEx.rgs" />
     <None Include="DllRegExt.def" />
     <None Include="DllRegExt.rgs" />
+    <None Include="SubIExCmdMenu.rgs" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="DllRegExt.idl" />

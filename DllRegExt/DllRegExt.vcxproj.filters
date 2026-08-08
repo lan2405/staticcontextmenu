@@ -46,6 +46,12 @@
     <ClInclude Include="DllRegEx.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SubIExCmdMenu.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="constinfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DllRegExt.cpp">
@@ -69,6 +75,9 @@
     <ClCompile Include="DllRegEx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SubIExCmdMenu.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DllRegExt.rc">
@@ -83,6 +92,9 @@
       <Filter>源文件</Filter>
     </None>
     <None Include="DllRegEx.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="SubIExCmdMenu.rgs">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

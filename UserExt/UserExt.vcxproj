@@ -232,11 +232,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="compreg.h" />
+    <ClInclude Include="constinfo.h" />
     <ClInclude Include="dllmain.h" />
+    <ClInclude Include="ExplorerCmd.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="menuext.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SubIExCmdRoot.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UserExt_i.h" />
     <ClInclude Include="xdlldata.h" />
@@ -257,13 +259,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="menuext.cpp" />
+    <ClCompile Include="ExplorerCmd.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SubIExCmdRoot.cpp" />
     <ClCompile Include="UserExt.cpp" />
     <ClCompile Include="UserExt_i.c">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -294,12 +297,16 @@
     <ResourceCompile Include="UserExt.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="menuext.rgs" />
+    <None Include="ExplorerCmd.rgs" />
+    <None Include="SubIExCmdRoot.rgs" />
     <None Include="UserExt.def" />
     <None Include="UserExt.rgs" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="UserExt.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Icon_file\mainmenu.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

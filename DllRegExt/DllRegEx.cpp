@@ -53,7 +53,7 @@ STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::Initialize(PCIDLIST_ABSOLUTE pidlFol
 
 STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::QueryContextMenu(HMENU hmenu, UINT indexMenu, UINT idCmdFirst, UINT idCmdLast, UINT uFlags)
 {
-    bool bAllDll = true;
+    
     for (const auto& path : m_selectedFiles)
     {
         const TCHAR* ext = PathFindExtension(path.c_str());
@@ -129,65 +129,50 @@ STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::InvokeCommand(LPCMINVOKECOMMANDINFO 
     }
 }
 
-STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetCommandString(UINT_PTR idcmd, UINT uType, UINT* pReserved, LPSTR pszName, UINT cchOut)
-{
-    if (uType == GCS_VERB)
-    {
-        if (idcmd == CMD_REG)
-        {
-            strcpy_s(pszName, cchOut, "注册");
-        }
-        else if (idcmd == CMD_UREG)
-        {
-            strcpy_s(pszName, cchOut, "注销");
-        }
-    }
-	return S_OK;
-}
-
 STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::EnumSubCommands(IEnumExplorerCommand** ppEnum)
 {
-    return E_NOTIMPL;
-}
+    if (!ppEnum)
+        return E_POINTER;
 
-STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetCanonicalName(GUID* pguidCommandName)
-{
-    *pguidCommandName = GetObjectCLSID();
+    m_currentIndex = 0;   // 重置枚举位置
+    this->AddRef();        // 返回前增加引用计数
+    *ppEnum = static_cast<IEnumExplorerCommand*>(this);
     return S_OK;
 }
 
-STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetFlags(EXPCMDFLAGS* pFlags)
+
+STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::Clone(IEnumExplorerCommand** ppenum)
 {
-    *pFlags = ECF_DEFAULT;
-    return S_OK;
+    // 简化实现：直接复用 Reset 后的当前对象（实际需深拷贝状态）
+    *ppenum = NULL;
+    CComObject<CDllRegEx>* pNew;
+    HRESULT hr = CComObject<CDllRegEx>::CreateInstance(&pNew);
+    if (SUCCEEDED(hr)) {
+        pNew->AddRef();
+        pNew->m_currentIndex = m_currentIndex;
+        pNew->m_subCommands = m_subCommands;  // 共享子命令
+        *ppenum = static_cast<IEnumExplorerCommand*>(pNew);
+    }
+    return hr;
 }
 
-STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetIcon(IShellItemArray* psiItemArray, LPWSTR* ppszIcon)
+STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::Next(ULONG celt, IExplorerCommand** pUICommand, ULONG* pceltFetched)
 {
-    return E_NOTIMPL;
+    if (!pUICommand)
+        return E_POINTER;
+    ULONG fetched = 0;
+    while (fetched < celt && m_currentIndex < m_subCommands.size()) {
+        pUICommand[fetched] = m_subCommands[m_currentIndex];
+        pUICommand[fetched]->AddRef(); // 必须增加引用计数
+        m_currentIndex++;
+        fetched++;
+    }
+    if (pceltFetched) *pceltFetched = fetched;
+    return (fetched == celt) ? S_OK : S_FALSE;
 }
 
-STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetState(IShellItemArray* psiItemArray, BOOL fOkToBeSlow, EXPCMDSTATE* pCmdState)
-{
-    *pCmdState = ECS_ENABLED;
-    return S_OK;
-}
 
-STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetTitle(IShellItemArray* psiItemArray, LPWSTR* ppszName)
-{
-    std::wstring titlename = _T("testreg");
-    return SHStrDup(titlename.c_str(), ppszName);
-}
 
-STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::GetToolTip(IShellItemArray* psiItemArray, LPWSTR* ppszInfotip)
-{
-    return E_NOTIMPL;
-}
-
-STDMETHODIMP_(HRESULT __stdcall) CDllRegEx::Invoke(IShellItemArray* psiItemArray, IBindCtx* pbc)
-{
-    return E_NOTIMPL;
-}
 
 void CDllRegEx::initRegMenu(HMENU hmenu, UINT indexMenu, UINT idCmdFirst)
 {

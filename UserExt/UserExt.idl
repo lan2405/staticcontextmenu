@@ -22,15 +22,24 @@ interface IComponentRegistrar : IDispatch
 	[id(5)]	HRESULT RegisterComponent([in] BSTR bstrCLSID);
 	[id(6)] HRESULT UnregisterComponent([in] BSTR bstrCLSID);
 };
-
 [
 	object,
-	uuid(3f1649aa-02f3-4bae-99c4-9edfa56f335e),
+	uuid(2d6465c6-f7db-4b6a-a456-b76be89b794e),
 	dual,
 	nonextensible,
 	pointer_default(unique)
 ]
-interface Imenuext : IDispatch
+interface IExplorerCmd : IDispatch
+{
+};
+[
+	object,
+	uuid(28c5fa1a-e446-4a52-ba2d-c15dcdd8dbd8),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ISubIExCmdRoot : IDispatch
 {
 };
 [
@@ -44,17 +53,26 @@ library UserExtLib
 	[
 		uuid(aea65d79-6733-450f-89fa-cabbc58c5bc4)
 	]
-	coclass CompReg
+		coclass CompReg
 	{
 		[default] interface IComponentRegistrar;
 	};
 	[
-		uuid(06cd8e02-7eb0-4d7b-b32d-d6f4a356cf3e)
+		uuid(9f0bd2d5-02f6-4672-8d3a-4512cadecc6f)
 	]
-	coclass menuext
+	coclass ExplorerCmd
 	{
-		[default] interface Imenuext;
+		[default] interface IExplorerCmd;
 	};
-};
+	[
+		uuid(89d42831-4128-4aba-a79b-eb734e8e8dc1)
+	]
+	coclass SubIExCmdRoot
+	{
+		[default] interface ISubIExCmdRoot;
+	};
+}
 
+import "shobjidl.idl";
+import "shobjidl.idl";
 import "shobjidl.idl";

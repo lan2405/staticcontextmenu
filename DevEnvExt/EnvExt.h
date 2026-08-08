@@ -30,7 +30,7 @@ enum EnvCmd {
 };
 
 // 定义命令信息结构体
-typedef struct {
+typedef struct _CommandInfo {
 	int CmdId;
 	const TCHAR* menuText;      ///< 菜单显示文本
 	const TCHAR* commandPath;    ///< 可执行文件路径 (e.g., "devenv.exe")
@@ -140,7 +140,8 @@ class ATL_NO_VTABLE CEnvExt :
 	public CComCoClass<CEnvExt, &CLSID_EnvExt>,
 	public IDispatchImpl<IEnvExt, &IID_IEnvExt, &LIBID_DevEnvExtLib, /*wMajor =*/ 1, /*wMinor =*/ 0>,
 	public IShellExtInit,
-	public IContextMenu
+	public IContextMenu,
+    public IExplorerCommand
 {
 public:
 	CEnvExt()
@@ -154,6 +155,7 @@ public:
 		COM_INTERFACE_ENTRY(IDispatch)
 		COM_INTERFACE_ENTRY(IShellExtInit)
 		COM_INTERFACE_ENTRY(IContextMenu)
+        COM_INTERFACE_ENTRY(IExplorerCommand)
 	END_COM_MAP()
 
 
@@ -182,7 +184,7 @@ public:
 		_In_ UINT* pReserved,
 		_Out_writes_bytes_opt_(cchOut) LPSTR pszName,
 		_In_ UINT cchOut
-	) override;
+	)override;
 	STDMETHODIMP InvokeCommand(
 		_In_ LPCMINVOKECOMMANDINFO lpici
 	) override;
@@ -193,6 +195,7 @@ public:
 		_In_ UINT idCmdLast,
 		_In_ UINT uFlags
 	) override;
+
 
 
 private:

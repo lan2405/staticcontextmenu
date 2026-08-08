@@ -1,0 +1,26 @@
+HKCR
+{
+	UserExt.ExplorerCmd.1 = s 'ExplorerCmd class'
+	{
+		CLSID = s '{9f0bd2d5-02f6-4672-8d3a-4512cadecc6f}'
+	}
+	UserExt.ExplorerCmd = s 'ExplorerCmd class'
+	{		
+		CurVer = s 'UserExt.ExplorerCmd.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {9f0bd2d5-02f6-4672-8d3a-4512cadecc6f} = s 'ExplorerCmd class'
+		{
+			ProgID = s 'UserExt.ExplorerCmd.1'
+			VersionIndependentProgID = s 'UserExt.ExplorerCmd'
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{cba63cca-446c-4ded-a68c-3be1e7fdec41}'
+			Version = s '1.0'
+		}
+	}
+}

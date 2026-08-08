@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+  xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4"
+  xmlns:desktop9="http://schemas.microsoft.com/appx/manifest/desktop/windows10/9"
+  xmlns:desktop10="http://schemas.microsoft.com/appx/manifest/desktop/windows10/10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:uap18="http://schemas.microsoft.com/appx/manifest/uap/windows10/18"
+  IgnorableNamespaces="uap rescap desktop4 desktop9 uap18 com">
+
+	<Identity
+	  Name="9ae0e8eb-306d-4b54-bb9c-fd987a602a57"
+	  Publisher="CN=devptx"
+	  Version="1.0.33.0" />
+
+	<Properties>
+		<DisplayName>WapProjTemplate1</DisplayName>
+		<PublisherDisplayName>Dallas</PublisherDisplayName>
+		<Logo>Images\StoreLogo.png</Logo>
+	</Properties>
+
+	<Dependencies>
+		<TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+		<TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14393.0" MaxVersionTested="10.0.14393.0" />
+	</Dependencies>
+
+	<Resources>
+		<Resource Language="x-generate"/>
+	</Resources>
+
+	<Applications>
+		<Application Id="App"
+		  Executable="$targetnametoken$.exe"
+		  EntryPoint="$targetentrypoint$" uap18:RuntimeBehavior="win32App">
+			<uap:VisualElements
+			  DisplayName="WapProjTemplate1"
+			  Description="WapProjTemplate1"
+			  BackgroundColor="transparent"
+			  Square150x150Logo="Images\Square150x150Logo.png"
+			  Square44x44Logo="Images\Square44x44Logo.png">
+				<uap:DefaultTile Square71x71Logo="Images\SmallTile.png" Wide310x150Logo="Images\Wide310x150Logo.png" Square310x310Logo="Images\LargeTile.png"/>
+				<uap:SplashScreen Image="Images\SplashScreen.png"/>
+			</uap:VisualElements>
+			<Extensions>
+				<com:Extension Category="windows.comServer">
+					<com:ComServer>
+						<com:SurrogateServer DisplayName="DllReg Extensions">
+							<com:Class Id="9dd00a4a-9701-4c02-813c-2fd842b33587" Path="DllRegExt.dll" ThreadingModel="STA" />
+							<com:Class Id="6f3d9fe2-7d96-4910-9d34-e7e57378bc64" Path="Sample.dll" ThreadingModel="STA" />
+							<com:Class Id="9f0bd2d5-02f6-4672-8d3a-4512cadecc6f" Path="UserExt.dll" ThreadingModel="STA" />
+						</com:SurrogateServer>
+					</com:ComServer>
+				</com:Extension>
+				<desktop4:Extension Category="windows.fileExplorerContextMenus">
+					<desktop4:FileExplorerContextMenus>
+						<desktop4:ItemType Type="*">
+							<desktop4:Verb Id="regs" Clsid="9dd00a4a-9701-4c02-813c-2fd842b33587" />
+							<!--desktop4:Verb Id="testATL" Clsid="6f3d9fe2-7d96-4910-9d34-e7e57378bc64" /-->
+							<desktop4:Verb Id="Enum" Clsid="9f0bd2d5-02f6-4672-8d3a-4512cadecc6f" />
+						</desktop4:ItemType>
+					</desktop4:FileExplorerContextMenus>
+				</desktop4:Extension>
+				<desktop9:Extension Category="windows.fileExplorerClassicContextMenuHandler">
+					<desktop9:FileExplorerClassicContextMenuHandler>
+						<desktop9:ExtensionHandler Type="*" Clsid="9dd00a4a-9701-4c02-813c-2fd842b33587" />
+						<!--desktop9:ExtensionHandler Type="*" Clsid="6f3d9fe2-7d96-4910-9d34-e7e57378bc64" /-->
+					</desktop9:FileExplorerClassicContextMenuHandler>
+				</desktop9:Extension>
+			</Extensions>
+		</Application>
+	</Applications>
+
+	<Capabilities>
+		<rescap:Capability Name="runFullTrust" />
+	</Capabilities>
+</Package>
