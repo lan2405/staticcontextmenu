@@ -1,0 +1,54 @@
+﻿// DllRegIExCmdExt.idl: DllRegIExCmdExt 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 生成类型库(DllRegIExCmdExt.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(52507bcb-3938-436b-9427-64e39d4515d8),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IIExCmdMainMenus : IDispatch
+{
+};
+[
+	object,
+	uuid(d811f3f1-91ce-46ca-ba51-a6838a480087),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IIExCmdSubMenus : IDispatch
+{
+};
+[
+	uuid(0d83b8e4-9ab5-4324-ab19-2ca77465bb46),
+	version(1.0),
+]
+library DllRegIExCmdExtLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(fdd83540-b3a7-4c67-8805-f1442273303f)
+	]
+	coclass IExCmdMainMenus
+	{
+		[default] interface IIExCmdMainMenus;
+	};
+	[
+		uuid(3d8cc906-2942-44d0-8487-b86e473498f1)
+	]
+	coclass IExCmdSubMenus
+	{
+		[default] interface IIExCmdSubMenus;
+	};
+};
+
+import "shobjidl.idl";
+import "shobjidl.idl";

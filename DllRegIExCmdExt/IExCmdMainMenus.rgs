@@ -2,14 +2,14 @@ HKCR
 {
 	NoRemove CLSID
 	{
-		ForceRemove {8ccde13c-213f-4eac-ac9e-c35253dcee96} = s 'SubIExCmdMenu class'
+		ForceRemove {fdd83540-b3a7-4c67-8805-f1442273303f} = s 'IExCmdMainMenus class'
 		{
 			ForceRemove Programmable
 			InprocServer32 = s '%MODULE%'
 			{
 				val ThreadingModel = s 'Apartment'
 			}
-			TypeLib = s '{3ba066fc-e493-451b-a26f-86b9841f1fe1}'
+			TypeLib = s '{0d83b8e4-9ab5-4324-ab19-2ca77465bb46}'
 			Version = s '1.0'
 		}
 	}

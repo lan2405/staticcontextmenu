@@ -34,16 +34,6 @@ interface IDllRegEx : IDispatch
 {
 };
 [
-	object,
-	uuid(14af87d8-3ff9-4261-aad8-c384b6740af9),
-	dual,
-	nonextensible,
-	pointer_default(unique)
-]
-interface ISubIExCmdMenu : IDispatch
-{
-};
-[
 	uuid(3ba066fc-e493-451b-a26f-86b9841f1fe1),
 	version(1.0),
 	custom(a817e7a1-43fa-11d0-9e44-00aa00b6770a,"{c0444687-aa57-4638-8140-1602aa6eef73}")
@@ -64,13 +54,6 @@ library DllRegExtLib
 	coclass DllRegEx
 	{
 		[default] interface IDllRegEx;
-	};
-	[
-		uuid(8ccde13c-213f-4eac-ac9e-c35253dcee96)
-	]
-	coclass SubIExCmdMenu
-	{
-		[default] interface ISubIExCmdMenu;
 	};
 };
 

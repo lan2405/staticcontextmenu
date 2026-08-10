@@ -14,7 +14,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="生成的文件">
-      <UniqueIdentifier>{35e36f68-8958-415a-ae22-b49f8261bf99}</UniqueIdentifier>
+      <UniqueIdentifier>{20a87a7b-1d25-43c3-acc9-0739cbada82b}</UniqueIdentifier>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
   </ItemGroup>
@@ -31,19 +31,19 @@
     <ClInclude Include="dllmain.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="compreg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="xdlldata.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DllRegExt_i.h">
+    <ClInclude Include="DllRegIExCmdExt_i.h">
       <Filter>生成的文件</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DllRegEx.h">
+    <ClInclude Include="IExCmdMainMenus.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IExCmdSubMenus.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="constinfo.h">
@@ -51,46 +51,49 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DllRegExt.cpp">
+    <ClCompile Include="DllRegIExCmdExt.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="compreg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="xdlldata.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="DllRegExt_i.c">
+    <ClCompile Include="DllRegIExCmdExt_i.c">
       <Filter>生成的文件</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="DllRegEx.cpp">
+    <ClCompile Include="IExCmdMainMenus.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="IExCmdSubMenus.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="DllRegExt.rc">
+    <ResourceCompile Include="DllRegIExCmdExt.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DllRegExt.rgs">
+    <None Include="DllRegIExCmdExt.rgs">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="DllRegExt.def">
+    <None Include="DllRegIExCmdExt.def">
       <Filter>源文件</Filter>
     </None>
-    <None Include="DllRegEx.rgs">
+    <None Include="IExCmdMainMenus.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="IExCmdSubMenus.rgs">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="DllRegExt.idl">
+    <Midl Include="DllRegIExCmdExt.idl">
       <Filter>源文件</Filter>
     </Midl>
   </ItemGroup>

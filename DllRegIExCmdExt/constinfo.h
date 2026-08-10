@@ -1,28 +1,28 @@
-#pragma once
+
 
 #include <shobjidl_core.h>
 
 
 
-enum MyCmd {
-	CMD_ROOT=0,          ///< 根命令
+extern enum MyCmd {
+	CMD_ROOT = 0,          ///< 根命令
 	CMD_REG,            ///< 注册
 	CMD_UREG,         ///< 反注册
 	CMD_END             ///< 结束
 };
 
 
-struct ExplorerCommand {
-	GUID            guid;           
+struct _ExplorerCommand {
+	GUID            guid;
 	EXPCMDFLAGS     flags; ///< GetFlags
 	const TCHAR* icon;         ///< GetIcon
 	EXPCMDSTATE     state; ///< GetState
 	const TCHAR* title;          ///< GetTitle
 	const TCHAR* tooltip;     ///< GetToolTip
-};
+}ExplorerCommand;
 
 
-const ExplorerCommand IExCmdInfoRegistry[CMD_END] = {
+extern ExplorerCommand IExCmdInfoRegistry[CMD_END] = {
 	{
 		{ 0, 0, 0, {0,0,0,0,0,0,0,0} },   // guid
 		ECF_DEFAULT,                        // flags
@@ -41,7 +41,6 @@ const ExplorerCommand IExCmdInfoRegistry[CMD_END] = {
 	_T("注册组件")
 	},
 	// ── 注销组件 ──
-
 {
 	// {39FB48D9-5E73-4533-B0C3-565857AFF622}
 	{ 0x39fb48d9, 0x5e73, 0x4533, { 0xb0, 0xc3, 0x56, 0x58, 0x57, 0xaf, 0xf6, 0x22 } },
@@ -54,7 +53,7 @@ const ExplorerCommand IExCmdInfoRegistry[CMD_END] = {
 };
 
 
-SHELLEXECUTEINFO RegCmdInfo = {
+extern SHELLEXECUTEINFO RegCmdInfo = {
 	sizeof(SHELLEXECUTEINFO),
 	SEE_MASK_DEFAULT,
 	nullptr,
@@ -69,17 +68,6 @@ SHELLEXECUTEINFO RegCmdInfo = {
 	nullptr
 };
 
-SHELLEXECUTEINFO UnRegCmdInfo = {
-	sizeof(SHELLEXECUTEINFO),
-	SEE_MASK_DEFAULT,
-	nullptr,
-	_T("runas"),
-	_T("regsvr32.exe"),
-	_T(""),
-	NULL,
-	SW_SHOW,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr
-};
+
+
+
