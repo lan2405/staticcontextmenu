@@ -66,6 +66,20 @@ typedef interface IEnvExt IEnvExt;
 #endif 	/* __IEnvExt_FWD_DEFINED__ */
 
 
+#ifndef __IDevEnvMainIExCmd_FWD_DEFINED__
+#define __IDevEnvMainIExCmd_FWD_DEFINED__
+typedef interface IDevEnvMainIExCmd IDevEnvMainIExCmd;
+
+#endif 	/* __IDevEnvMainIExCmd_FWD_DEFINED__ */
+
+
+#ifndef __IDevEnvSubIExCmd_FWD_DEFINED__
+#define __IDevEnvSubIExCmd_FWD_DEFINED__
+typedef interface IDevEnvSubIExCmd IDevEnvSubIExCmd;
+
+#endif 	/* __IDevEnvSubIExCmd_FWD_DEFINED__ */
+
+
 #ifndef __CompReg_FWD_DEFINED__
 #define __CompReg_FWD_DEFINED__
 
@@ -88,6 +102,30 @@ typedef struct EnvExt EnvExt;
 #endif /* __cplusplus */
 
 #endif 	/* __EnvExt_FWD_DEFINED__ */
+
+
+#ifndef __DevEnvMainIExCmd_FWD_DEFINED__
+#define __DevEnvMainIExCmd_FWD_DEFINED__
+
+#ifdef __cplusplus
+typedef class DevEnvMainIExCmd DevEnvMainIExCmd;
+#else
+typedef struct DevEnvMainIExCmd DevEnvMainIExCmd;
+#endif /* __cplusplus */
+
+#endif 	/* __DevEnvMainIExCmd_FWD_DEFINED__ */
+
+
+#ifndef __DevEnvSubIExCmd_FWD_DEFINED__
+#define __DevEnvSubIExCmd_FWD_DEFINED__
+
+#ifdef __cplusplus
+typedef class DevEnvSubIExCmd DevEnvSubIExCmd;
+#else
+typedef struct DevEnvSubIExCmd DevEnvSubIExCmd;
+#endif /* __cplusplus */
+
+#endif 	/* __DevEnvSubIExCmd_FWD_DEFINED__ */
 
 
 /* header files for imported files */
@@ -418,6 +456,260 @@ EXTERN_C const IID IID_IEnvExt;
 #endif 	/* __IEnvExt_INTERFACE_DEFINED__ */
 
 
+#ifndef __IDevEnvMainIExCmd_INTERFACE_DEFINED__
+#define __IDevEnvMainIExCmd_INTERFACE_DEFINED__
+
+/* interface IDevEnvMainIExCmd */
+/* [unique][nonextensible][dual][uuid][object] */ 
+
+
+EXTERN_C const IID IID_IDevEnvMainIExCmd;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+    
+    MIDL_INTERFACE("a543368f-122b-4808-ad8a-2149bf4b7261")
+    IDevEnvMainIExCmd : public IDispatch
+    {
+    public:
+    };
+    
+    
+#else 	/* C style interface */
+
+    typedef struct IDevEnvMainIExCmdVtbl
+    {
+        BEGIN_INTERFACE
+        
+        DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+            IDevEnvMainIExCmd * This,
+            /* [in] */ REFIID riid,
+            /* [annotation][iid_is][out] */ 
+            _COM_Outptr_  void **ppvObject);
+        
+        DECLSPEC_XFGVIRT(IUnknown, AddRef)
+        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+            IDevEnvMainIExCmd * This);
+        
+        DECLSPEC_XFGVIRT(IUnknown, Release)
+        ULONG ( STDMETHODCALLTYPE *Release )( 
+            IDevEnvMainIExCmd * This);
+        
+        DECLSPEC_XFGVIRT(IDispatch, GetTypeInfoCount)
+        HRESULT ( STDMETHODCALLTYPE *GetTypeInfoCount )( 
+            IDevEnvMainIExCmd * This,
+            /* [out] */ UINT *pctinfo);
+        
+        DECLSPEC_XFGVIRT(IDispatch, GetTypeInfo)
+        HRESULT ( STDMETHODCALLTYPE *GetTypeInfo )( 
+            IDevEnvMainIExCmd * This,
+            /* [in] */ UINT iTInfo,
+            /* [in] */ LCID lcid,
+            /* [out] */ ITypeInfo **ppTInfo);
+        
+        DECLSPEC_XFGVIRT(IDispatch, GetIDsOfNames)
+        HRESULT ( STDMETHODCALLTYPE *GetIDsOfNames )( 
+            IDevEnvMainIExCmd * This,
+            /* [in] */ REFIID riid,
+            /* [size_is][in] */ LPOLESTR *rgszNames,
+            /* [range][in] */ UINT cNames,
+            /* [in] */ LCID lcid,
+            /* [size_is][out] */ DISPID *rgDispId);
+        
+        DECLSPEC_XFGVIRT(IDispatch, Invoke)
+        /* [local] */ HRESULT ( STDMETHODCALLTYPE *Invoke )( 
+            IDevEnvMainIExCmd * This,
+            /* [annotation][in] */ 
+            _In_  DISPID dispIdMember,
+            /* [annotation][in] */ 
+            _In_  REFIID riid,
+            /* [annotation][in] */ 
+            _In_  LCID lcid,
+            /* [annotation][in] */ 
+            _In_  WORD wFlags,
+            /* [annotation][out][in] */ 
+            _In_  DISPPARAMS *pDispParams,
+            /* [annotation][out] */ 
+            _Out_opt_  VARIANT *pVarResult,
+            /* [annotation][out] */ 
+            _Out_opt_  EXCEPINFO *pExcepInfo,
+            /* [annotation][out] */ 
+            _Out_opt_  UINT *puArgErr);
+        
+        END_INTERFACE
+    } IDevEnvMainIExCmdVtbl;
+
+    interface IDevEnvMainIExCmd
+    {
+        CONST_VTBL struct IDevEnvMainIExCmdVtbl *lpVtbl;
+    };
+
+    
+
+#ifdef COBJMACROS
+
+
+#define IDevEnvMainIExCmd_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define IDevEnvMainIExCmd_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define IDevEnvMainIExCmd_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define IDevEnvMainIExCmd_GetTypeInfoCount(This,pctinfo)	\
+    ( (This)->lpVtbl -> GetTypeInfoCount(This,pctinfo) ) 
+
+#define IDevEnvMainIExCmd_GetTypeInfo(This,iTInfo,lcid,ppTInfo)	\
+    ( (This)->lpVtbl -> GetTypeInfo(This,iTInfo,lcid,ppTInfo) ) 
+
+#define IDevEnvMainIExCmd_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)	\
+    ( (This)->lpVtbl -> GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId) ) 
+
+#define IDevEnvMainIExCmd_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)	\
+    ( (This)->lpVtbl -> Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr) ) 
+
+
+#endif /* COBJMACROS */
+
+
+#endif 	/* C style interface */
+
+
+
+
+#endif 	/* __IDevEnvMainIExCmd_INTERFACE_DEFINED__ */
+
+
+#ifndef __IDevEnvSubIExCmd_INTERFACE_DEFINED__
+#define __IDevEnvSubIExCmd_INTERFACE_DEFINED__
+
+/* interface IDevEnvSubIExCmd */
+/* [unique][nonextensible][dual][uuid][object] */ 
+
+
+EXTERN_C const IID IID_IDevEnvSubIExCmd;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+    
+    MIDL_INTERFACE("352fc762-3286-46b1-9d39-8cf2ea81e8a5")
+    IDevEnvSubIExCmd : public IDispatch
+    {
+    public:
+    };
+    
+    
+#else 	/* C style interface */
+
+    typedef struct IDevEnvSubIExCmdVtbl
+    {
+        BEGIN_INTERFACE
+        
+        DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+            IDevEnvSubIExCmd * This,
+            /* [in] */ REFIID riid,
+            /* [annotation][iid_is][out] */ 
+            _COM_Outptr_  void **ppvObject);
+        
+        DECLSPEC_XFGVIRT(IUnknown, AddRef)
+        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+            IDevEnvSubIExCmd * This);
+        
+        DECLSPEC_XFGVIRT(IUnknown, Release)
+        ULONG ( STDMETHODCALLTYPE *Release )( 
+            IDevEnvSubIExCmd * This);
+        
+        DECLSPEC_XFGVIRT(IDispatch, GetTypeInfoCount)
+        HRESULT ( STDMETHODCALLTYPE *GetTypeInfoCount )( 
+            IDevEnvSubIExCmd * This,
+            /* [out] */ UINT *pctinfo);
+        
+        DECLSPEC_XFGVIRT(IDispatch, GetTypeInfo)
+        HRESULT ( STDMETHODCALLTYPE *GetTypeInfo )( 
+            IDevEnvSubIExCmd * This,
+            /* [in] */ UINT iTInfo,
+            /* [in] */ LCID lcid,
+            /* [out] */ ITypeInfo **ppTInfo);
+        
+        DECLSPEC_XFGVIRT(IDispatch, GetIDsOfNames)
+        HRESULT ( STDMETHODCALLTYPE *GetIDsOfNames )( 
+            IDevEnvSubIExCmd * This,
+            /* [in] */ REFIID riid,
+            /* [size_is][in] */ LPOLESTR *rgszNames,
+            /* [range][in] */ UINT cNames,
+            /* [in] */ LCID lcid,
+            /* [size_is][out] */ DISPID *rgDispId);
+        
+        DECLSPEC_XFGVIRT(IDispatch, Invoke)
+        /* [local] */ HRESULT ( STDMETHODCALLTYPE *Invoke )( 
+            IDevEnvSubIExCmd * This,
+            /* [annotation][in] */ 
+            _In_  DISPID dispIdMember,
+            /* [annotation][in] */ 
+            _In_  REFIID riid,
+            /* [annotation][in] */ 
+            _In_  LCID lcid,
+            /* [annotation][in] */ 
+            _In_  WORD wFlags,
+            /* [annotation][out][in] */ 
+            _In_  DISPPARAMS *pDispParams,
+            /* [annotation][out] */ 
+            _Out_opt_  VARIANT *pVarResult,
+            /* [annotation][out] */ 
+            _Out_opt_  EXCEPINFO *pExcepInfo,
+            /* [annotation][out] */ 
+            _Out_opt_  UINT *puArgErr);
+        
+        END_INTERFACE
+    } IDevEnvSubIExCmdVtbl;
+
+    interface IDevEnvSubIExCmd
+    {
+        CONST_VTBL struct IDevEnvSubIExCmdVtbl *lpVtbl;
+    };
+
+    
+
+#ifdef COBJMACROS
+
+
+#define IDevEnvSubIExCmd_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define IDevEnvSubIExCmd_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define IDevEnvSubIExCmd_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define IDevEnvSubIExCmd_GetTypeInfoCount(This,pctinfo)	\
+    ( (This)->lpVtbl -> GetTypeInfoCount(This,pctinfo) ) 
+
+#define IDevEnvSubIExCmd_GetTypeInfo(This,iTInfo,lcid,ppTInfo)	\
+    ( (This)->lpVtbl -> GetTypeInfo(This,iTInfo,lcid,ppTInfo) ) 
+
+#define IDevEnvSubIExCmd_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)	\
+    ( (This)->lpVtbl -> GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId) ) 
+
+#define IDevEnvSubIExCmd_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)	\
+    ( (This)->lpVtbl -> Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr) ) 
+
+
+#endif /* COBJMACROS */
+
+
+#endif 	/* C style interface */
+
+
+
+
+#endif 	/* __IDevEnvSubIExCmd_INTERFACE_DEFINED__ */
+
+
 
 #ifndef __DevEnvExtLib_LIBRARY_DEFINED__
 #define __DevEnvExtLib_LIBRARY_DEFINED__
@@ -442,6 +734,22 @@ EXTERN_C const CLSID CLSID_EnvExt;
 
 class DECLSPEC_UUID("5eb407cd-a1d4-436a-8974-e07a41c9fff2")
 EnvExt;
+#endif
+
+EXTERN_C const CLSID CLSID_DevEnvMainIExCmd;
+
+#ifdef __cplusplus
+
+class DECLSPEC_UUID("a3c78550-d312-44be-84c6-1f2f858b5241")
+DevEnvMainIExCmd;
+#endif
+
+EXTERN_C const CLSID CLSID_DevEnvSubIExCmd;
+
+#ifdef __cplusplus
+
+class DECLSPEC_UUID("0a2348fe-bdf1-4404-9120-95adba0fdc4d")
+DevEnvSubIExCmd;
 #endif
 #endif /* __DevEnvExtLib_LIBRARY_DEFINED__ */
 

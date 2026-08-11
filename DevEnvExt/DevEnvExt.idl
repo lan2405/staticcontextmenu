@@ -34,6 +34,26 @@ interface IEnvExt : IDispatch
 {
 };
 [
+	object,
+	uuid(a543368f-122b-4808-ad8a-2149bf4b7261),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IDevEnvMainIExCmd : IDispatch
+{
+};
+[
+	object,
+	uuid(352fc762-3286-46b1-9d39-8cf2ea81e8a5),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IDevEnvSubIExCmd : IDispatch
+{
+};
+[
 	uuid(2ca39d14-34da-42e7-a60d-bddfb6546117),
 	version(1.0),
 	custom(a817e7a1-43fa-11d0-9e44-00aa00b6770a,"{9309a10f-3931-4545-bb9e-ff77bfee05cb}")
@@ -55,6 +75,22 @@ library DevEnvExtLib
 	{
 		[default] interface IEnvExt;
 	};
+	[
+		uuid(a3c78550-d312-44be-84c6-1f2f858b5241)
+	]
+	coclass DevEnvMainIExCmd
+	{
+		[default] interface IDevEnvMainIExCmd;
+	};
+	[
+		uuid(0a2348fe-bdf1-4404-9120-95adba0fdc4d)
+	]
+	coclass DevEnvSubIExCmd
+	{
+		[default] interface IDevEnvSubIExCmd;
+	};
 };
 
+import "shobjidl.idl";
+import "shobjidl.idl";
 import "shobjidl.idl";

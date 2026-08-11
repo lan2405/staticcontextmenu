@@ -232,12 +232,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="compreg.h" />
+    <ClInclude Include="constinfo.h" />
     <ClInclude Include="DevEnvExt_i.h" />
+    <ClInclude Include="DevEnvMainIExCmd.h" />
+    <ClInclude Include="DevEnvSubIExCmd.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="EnvExt.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="staticinfo_storage.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="xdlldata.h" />
   </ItemGroup>
@@ -258,6 +262,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="DevEnvMainIExCmd.cpp" />
+    <ClCompile Include="DevEnvSubIExCmd.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
@@ -279,6 +285,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="staticinfo_storage.cpp" />
     <ClCompile Include="xdlldata.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
@@ -296,6 +303,8 @@
   <ItemGroup>
     <None Include="DevEnvExt.def" />
     <None Include="DevEnvExt.rgs" />
+    <None Include="DevEnvMainIExCmd.rgs" />
+    <None Include="DevEnvSubIExCmd.rgs" />
     <None Include="EnvExt.rgs" />
   </ItemGroup>
   <ItemGroup>
@@ -303,6 +312,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="C:\environment\图标文件workspace\新建文件夹\J.ico" />
+    <Image Include="C:\environment\图标文件workspace\新建文件夹\J.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

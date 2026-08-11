@@ -140,8 +140,7 @@ class ATL_NO_VTABLE CEnvExt :
 	public CComCoClass<CEnvExt, &CLSID_EnvExt>,
 	public IDispatchImpl<IEnvExt, &IID_IEnvExt, &LIBID_DevEnvExtLib, /*wMajor =*/ 1, /*wMinor =*/ 0>,
 	public IShellExtInit,
-	public IContextMenu,
-    public IExplorerCommand
+	public IContextMenu
 {
 public:
 	CEnvExt()
@@ -155,7 +154,6 @@ public:
 		COM_INTERFACE_ENTRY(IDispatch)
 		COM_INTERFACE_ENTRY(IShellExtInit)
 		COM_INTERFACE_ENTRY(IContextMenu)
-        COM_INTERFACE_ENTRY(IExplorerCommand)
 	END_COM_MAP()
 
 

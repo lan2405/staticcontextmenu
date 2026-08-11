@@ -46,6 +46,18 @@
     <ClInclude Include="EnvExt.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DevEnvMainIExCmd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DevEnvSubIExCmd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="constinfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="staticinfo_storage.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DevEnvExt.cpp">
@@ -69,6 +81,15 @@
     <ClCompile Include="EnvExt.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="DevEnvMainIExCmd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DevEnvSubIExCmd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="staticinfo_storage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DevEnvExt.rc">
@@ -85,6 +106,12 @@
     <None Include="EnvExt.rgs">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="DevEnvMainIExCmd.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="DevEnvSubIExCmd.rgs">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="DevEnvExt.idl">
@@ -93,6 +120,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="C:\environment\图标文件workspace\新建文件夹\J.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="C:\environment\图标文件workspace\新建文件夹\J.png">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
