@@ -24,6 +24,10 @@
     <Platform Solution="*|ARM" Project="x64" />
     <Platform Solution="*|ARM64" Project="x64" />
   </Project>
+  <Project Path="DllRegIExCmdExt/DllRegIExCmdExt.vcxproj">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
   <Project Path="I:/repos/staticcontextmenu/UserExt/UserExt.vcxproj" Id="1721bb4e-3c27-fa93-6553-f791478cd745">
     <Platform Solution="*|ARM" Project="x64" />
     <Platform Solution="*|ARM64" Project="x64" />
