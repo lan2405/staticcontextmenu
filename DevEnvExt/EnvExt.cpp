@@ -139,7 +139,7 @@ void CEnvExt::initMenu(HMENU hmenu, UINT indexMenu, UINT idCmdFirst)
     // 主菜单不需要 wID，因为它展开的是子菜单，不直接触发 InvokeCommand
     // 但为了规范，有些开发者会设 idCmdFirst，这里保持默认即可
     mainItem.hSubMenu = hSubMenu;
-    mainItem.dwTypeData = _T("打开编程环境目录"); // 对应图片中的父级菜单名
+    mainItem.dwTypeData = _T("ICM打开编程环境目录"); // 对应图片中的父级菜单名
     mainItem.cch = _tcslen(mainItem.dwTypeData);
 
     // 5. 将带有子菜单的主项插入到系统右键菜单 (hmenu) 中

@@ -77,18 +77,18 @@ IFACEMETHODIMP CIExCmdSubMenus::Invoke(IShellItemArray* psiItemArray, IBindCtx* 
 			? L"\"" + path + L"\""       // 注册：仅传递DLL路径
 			: L"/u \"" + path + L"\"";   // 反注册：添加 /u 参数
 		RegCmdInfo = {
-	sizeof(SHELLEXECUTEINFO),
-	SEE_MASK_DEFAULT,
-	nullptr,
-	_T("runas"),
-	_T("regsvr32.exe"),
-	cmd.c_str(),
-	NULL,
-	SW_SHOW,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr
+			sizeof(SHELLEXECUTEINFO),
+			SEE_MASK_DEFAULT,
+			nullptr,
+			_T("runas"),
+			_T("regsvr32.exe"),
+			cmd.c_str(),
+			NULL,
+			SW_SHOW,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr
 		};
 		BOOL hInst = ShellExecuteEx(&RegCmdInfo);
 		if (!hInst)

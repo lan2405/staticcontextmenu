@@ -52,13 +52,14 @@ private:
 	wchar_t modulePath[MAX_PATH];
 public:
 	//init
+	static void space(){}
 	void InitModulePath()
 	{
 		HMODULE hModule = nullptr;
 		GetModuleHandleExW(
 			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
 			GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-			(LPCWSTR)this,   // 用当前函数地址定位模块
+			(LPCWSTR)&space,   // 用当前函数地址定位模块
 			&hModule
 		);
 		GetModuleFileNameW(hModule, this->modulePath, MAX_PATH);
@@ -93,7 +94,7 @@ public:
 	IFACEMETHOD(GetIcon)(IShellItemArray* psiItemArray, LPWSTR* ppszIcon)override {
 		wchar_t iconPath[MAX_PATH + 32] = {};
 		swprintf_s(iconPath, L"%s,-201", modulePath);
-		return SHStrDup(_T(""), ppszIcon);// 修正，图标暂时设置为空
+		return SHStrDup(iconPath, ppszIcon);// 修正，图标暂时设置为空
 	}
 	IFACEMETHOD(GetState)(IShellItemArray* psiItemArray, BOOL fOkToBeSlow, EXPCMDSTATE* pCmdState)override { *pCmdState = ECS_ENABLED; return S_OK; }
 	IFACEMETHOD(GetTitle)(IShellItemArray* psiItemArray, LPWSTR* ppszName) override { std::wstring titlename = _T("打开编程环境目录"); return SHStrDup(titlename.c_str(), ppszName); }

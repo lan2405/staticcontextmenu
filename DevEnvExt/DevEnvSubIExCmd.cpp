@@ -70,11 +70,26 @@ IFACEMETHODIMP CDevEnvSubIExCmd::Invoke (IShellItemArray* psiItemArray, IBindCtx
 	}
 	
 	SHELLEXECUTEINFO Commandinfo = CmdInfo[m_size_];
+	std::wstring parm;
 	for (const auto& path : filePaths)
 	{
+		switch (m_size_)
+		{
+		case CMD_PowerShell_Admin:
+			parm = L"-NoExit -WorkingDirectory \"" + path + L"\"";
+			Commandinfo.lpParameters = parm.c_str();
+			break;
+		case CMD_PowerShell_System:
+			parm = L"-w \""+path+L"\" -s powershell -w Normal ";
+			Commandinfo.lpParameters = parm.c_str();
+			break;
+		default:
+			break;
+		}
 		Commandinfo.lpDirectory = path.c_str();
 		if (!ShellExecuteEx(&Commandinfo))
 		{
+
 			return E_FAIL;
 		}
 	}

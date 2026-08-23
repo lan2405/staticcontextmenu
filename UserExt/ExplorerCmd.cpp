@@ -7,10 +7,7 @@
 // CExplorerCmd
 
 
-STDMETHODIMP_(HRESULT __stdcall) CExplorerCmd::Invoke(IShellItemArray* psiItemArray, IBindCtx* pbc)
-{
-    return E_NOTIMPL;
-}
+
 
 STDMETHODIMP_(HRESULT __stdcall) CExplorerCmd::EnumSubCommands(IEnumExplorerCommand** ppEnum)
 {

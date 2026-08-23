@@ -52,7 +52,7 @@
   <PropertyGroup>
     <ProjectGuid>b1a97474-5d39-4852-a1c6-ed52833aa36e</ProjectGuid>
     <TargetPlatformVersion>10.0.26100.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.22159.0</TargetPlatformMinVersion>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <NoWarn>$(NoWarn);NU1702</NoWarn>
@@ -105,6 +105,7 @@
   <ItemGroup>
     <Content Include="DevEnvExt.dll" />
     <Content Include="DllRegExt.dll" />
+    <Content Include="DllRegIExCmdExt.dll" />
     <Content Include="Images\LargeTile.scale-100.png" />
     <Content Include="Images\LargeTile.scale-125.png" />
     <Content Include="Images\LargeTile.scale-150.png" />
@@ -157,6 +158,8 @@
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
     <Content Include="Images\Wide310x150Logo.scale-400.png" />
     <Content Include="Resource.dll" />
+    <Content Include="Tools\cli\PsExec.exe" />
+    <Content Include="Tools\cli\PsExec64.exe" />
     <Content Include="Sample.dll" />
     <Content Include="UserExt.dll" />
     <None Include="WapProjTemplate1_TemporaryKey.pfx" />
@@ -167,11 +170,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Tools\Run\" />
+    <Folder Include="Tools\service\" />
+    <Folder Include="Tools\desktop\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\space\space.vcxproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="reg\1.txt" />
+    <None Include="reg\1.xml" />
   </ItemGroup>
 </Project>

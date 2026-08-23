@@ -1,0 +1,18 @@
+﻿// Resource.idl: Resource 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 生成类型库(Resource.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(8688c9b3-8485-4610-b0d6-2aeb690c94ff),
+	version(1.0),
+]
+library ResourceLib
+{
+	importlib("stdole2.tlb");
+};
+

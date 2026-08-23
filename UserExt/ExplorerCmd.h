@@ -80,7 +80,7 @@ public:
 	STDMETHOD(GetState)(IShellItemArray* psiItemArray, BOOL fOkToBeSlow, EXPCMDSTATE* pCmdState) { *pCmdState = ECS_ENABLED; return S_OK; }
 	STDMETHOD(GetTitle)(IShellItemArray* psiItemArray, LPWSTR* ppszName) { std::wstring titlename = _T("UserExt"); return SHStrDup(titlename.c_str(), ppszName); }
 	STDMETHOD(GetToolTip)(IShellItemArray* psiItemArray, LPWSTR* ppszInfotip) { std::wstring tooltipinfo = _T("ToolTip");  return SHStrDup(tooltipinfo.c_str(), ppszInfotip); }
-	STDMETHOD(Invoke)(IShellItemArray* psiItemArray, IBindCtx* pbc) override;
+	STDMETHOD(Invoke)(IShellItemArray* psiItemArray, IBindCtx* pbc) override{ return E_NOTIMPL; };
 	STDMETHODIMP EnumSubCommands(IEnumExplorerCommand** ppEnum) override;
 	// IEnumExplorerCommand
 	STDMETHOD(Clone)(IEnumExplorerCommand** ppenum) override;
