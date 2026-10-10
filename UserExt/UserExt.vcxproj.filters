@@ -43,13 +43,10 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="ExplorerCmd.h">
+    <ClInclude Include="ExampleShellExtension.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="constinfo.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SubIExCmdRoot.h">
+    <ClInclude Include="ShellExtensionBase.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -72,10 +69,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ExplorerCmd.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SubIExCmdRoot.cpp">
+    <ClCompile Include="ExampleShellExtension.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -90,12 +84,6 @@
     </None>
     <None Include="UserExt.def">
       <Filter>源文件</Filter>
-    </None>
-    <None Include="ExplorerCmd.rgs">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="SubIExCmdRoot.rgs">
-      <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

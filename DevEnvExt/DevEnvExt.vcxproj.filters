@@ -119,10 +119,13 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\environment\图标文件workspace\新建文件夹\J.ico">
+    <Image Include="J.ico">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="C:\environment\图标文件workspace\新建文件夹\J.png">
+    <Image Include="J.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="..\..\..\development\devenv\.rsrc\ICON\2.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

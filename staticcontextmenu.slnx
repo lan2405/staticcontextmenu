@@ -6,17 +6,26 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Folder Name="/test/">
-    <Project Path="test/Sample/Sample.vcxproj" Id="cb7b4a86-fdf1-32e7-6c7f-6aa99a89fdcb">
-      <Platform Solution="*|ARM" Project="x64" />
-      <Platform Solution="*|ARM64" Project="x64" />
-    </Project>
-  </Folder>
-  <Project Path="ATLProject1/ATLProject1.vcxproj">
+  <Project Path="DevEnva/DevEnva (Package)/DevEnva (Package).wapproj" Type="c7167f0d-bc9f-4e6e-afe1-012c56b48db5" Id="9830474e-0dc9-4e09-9ddb-5b640262c224">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM" Project="x64" />
+    <Deploy />
+  </Project>
+  <Project Path="DevEnva/DevEnva/DevEnva.csproj" Id="29fa0873-19db-40f2-9814-cdd7dc653877">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="DevEnvExt/DevEnvExt.vcxproj">
     <Platform Solution="*|ARM" Project="x64" />
     <Platform Solution="*|ARM64" Project="x64" />
   </Project>
-  <Project Path="DevEnvExt/DevEnvExt.vcxproj">
+  <Project Path="DevEnvPrejectForkaiwinnow/DevEnvPrejectForkaiwinnow.wapproj" Type="c7167f0d-bc9f-4e6e-afe1-012c56b48db5" Id="cc96a397-5312-4fc0-bd40-31c2e0d6d3e8">
+    <Deploy />
+  </Project>
+  <Project Path="DevEnvSettingsUI/DevEnvSettingsUI.vcxproj" Id="d9735450-dbe0-40f5-8de6-68fd553274eb">
     <Platform Solution="*|ARM" Project="x64" />
     <Platform Solution="*|ARM64" Project="x64" />
   </Project>
@@ -43,4 +52,5 @@
   <Project Path="WapProjTemplate1/WapProjTemplate1.wapproj" Type="c7167f0d-bc9f-4e6e-afe1-012c56b48db5" Id="b1a97474-5d39-4852-a1c6-ed52833aa36e">
     <Deploy />
   </Project>
+  <Project Path="wpfDevEnvUI/wpfDevEnvUI.csproj" Id="45dd56fb-74ef-4c44-b2d3-7f8c8dfd69db" />
 </Solution>

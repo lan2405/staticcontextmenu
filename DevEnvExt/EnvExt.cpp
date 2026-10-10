@@ -109,12 +109,13 @@ void CEnvExt::initMenu(HMENU hmenu, UINT indexMenu, UINT idCmdFirst)
 
 
     MENUITEMINFO mii = { sizeof(MENUITEMINFO) };
-    mii.fMask = MIIM_TYPE | MIIM_STATE | MIIM_ID;
+    mii.fMask = MIIM_TYPE | MIIM_STATE | MIIM_ID;  // 必须包含 MIIM_ID，否则 wID 不生效
     mii.fType = MFT_STRING;
     mii.fState = MFS_ENABLED;
 
     // 3. 循环将菜单项插入到子菜单中
     // 循环次数 = CMD_END - CMD_BEGIN - 1 (减去CMD_BEGIN本身占用的一个位)
+    UINT pos = 0;
     for (int i = CMD_VisioStudio; i < CMD_END; ++i)
     {
         if (!g_CommandRegistry[i].menuText) continue;
@@ -124,8 +125,8 @@ void CEnvExt::initMenu(HMENU hmenu, UINT indexMenu, UINT idCmdFirst)
         mii.dwTypeData = (LPTSTR)g_CommandRegistry[i].menuText;
         mii.cch = _tcslen(g_CommandRegistry[i].menuText);
 
-        // 将项目插入子菜单，按顺序排列
-        InsertMenuItem(hSubMenu, idCmdFirst + i, TRUE, (LPCMENUITEMINFO)&mii);
+        // 将项目插入子菜单，按顺序排列（用递增的 pos 保证顺序正确）
+        InsertMenuItem(hSubMenu, pos++, TRUE, (LPCMENUITEMINFO)&mii);
     }
 
     // 4. 配置主菜单项（即右键直接看到的那个入口）

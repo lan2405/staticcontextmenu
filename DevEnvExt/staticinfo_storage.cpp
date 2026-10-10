@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "staticinfo_storage.h"
 
-
-
 IExCmdParm IExCmdInfoRegistry[CMD_END] = {
 	// ── 占位（CMD_BEGIN） ──
 	{
@@ -21,7 +19,7 @@ IExCmdParm IExCmdInfoRegistry[CMD_END] = {
 		{ 0x9B38C168, 0x3954, 0x474C, {0xB0, 0x9B, 0x91, 0xB3, 0x79, 0x5C, 0xB9, 0x81} },
 		_T("9B38C168-3954-474C-B09B-91B3795CB981"),
 		ECF_DEFAULT,
-		_T(""),
+		_T("%s,-205"),
 		ECS_ENABLED,
 		_T("VisualStudio"),
 		_T("使用 Visual Studio 打开")
@@ -112,8 +110,8 @@ IExCmdParm IExCmdInfoRegistry[CMD_END] = {
 	}
 };
 
-
 SHELLEXECUTEINFO CmdInfo[CMD_END] = {
+	// ── 占位（CMD_BEGIN） ──
 	{sizeof(SHELLEXECUTEINFO),
 			SEE_MASK_DEFAULT,
 			nullptr,
@@ -121,11 +119,9 @@ SHELLEXECUTEINFO CmdInfo[CMD_END] = {
 			_T(""),
 		 _T(""),
 			NULL,
-			SW_SHOW,
-			nullptr,
-			nullptr,
-			nullptr,
-			nullptr},
+			SW_SHOW
+	},
+	// ── Visual Studio ──
 	{sizeof(SHELLEXECUTEINFO),
 			SEE_MASK_DEFAULT,
 			nullptr,
@@ -133,11 +129,9 @@ SHELLEXECUTEINFO CmdInfo[CMD_END] = {
 			_T("C:\\Program Files (x86)\\Common Files\\Microsoft Shared\\MSEnv\\VSLauncher.exe"),
 			_T("source:ExplorerBackground"),
 			NULL,
-			SW_SHOW,
-			nullptr,
-			nullptr,
-			nullptr,
-			nullptr},
+			SW_SHOW
+	},
+	// ── Microsoft Visual Studio Code ──
 	{sizeof(SHELLEXECUTEINFO),
 			SEE_MASK_DEFAULT,
 			nullptr,
@@ -145,11 +139,9 @@ SHELLEXECUTEINFO CmdInfo[CMD_END] = {
 			_T("D:\\Program Files\\Microsoft VS Code\\Code.exe"),
 			_T(""),
 			NULL,
-			SW_SHOW,
-			nullptr,
-			nullptr,
-			nullptr,
-			nullptr},
+			SW_SHOW
+	},
+	// ── JetbrainsToolbox ──
 	{sizeof(SHELLEXECUTEINFO),
 			SEE_MASK_DEFAULT,
 			nullptr,
@@ -157,11 +149,9 @@ SHELLEXECUTEINFO CmdInfo[CMD_END] = {
 			_T("C:\\Users\\Dallas\\AppData\\Local\\JetBrains\\Toolbox\\bin\\jetbrains-toolbox.exe"),
 		 _T(""),
 			NULL,
-			SW_SHOW,
-			nullptr,
-			nullptr,
-			nullptr,
-			nullptr},
+			SW_SHOW 
+	},
+	// WSL
 	{sizeof(SHELLEXECUTEINFO),
 			SEE_MASK_DEFAULT,
 			nullptr,
@@ -169,11 +159,9 @@ SHELLEXECUTEINFO CmdInfo[CMD_END] = {
 			_T("wsl.exe "),
 		 _T(""),
 			NULL,
-			SW_SHOW,
-			nullptr,
-			nullptr,
-			nullptr,
-			nullptr},
+			SW_SHOW 
+	},
+	// ── PowerShell ──
 	{sizeof(SHELLEXECUTEINFO),
 			SEE_MASK_DEFAULT,
 			nullptr,
@@ -181,11 +169,9 @@ SHELLEXECUTEINFO CmdInfo[CMD_END] = {
 			_T("powershell.exe"),
 			_T("-NoExit -Command cd "),
 			NULL,
-			SW_SHOW,
-			nullptr,
-			nullptr,
-			nullptr,
-			nullptr},
+			SW_SHOW 
+	},
+	// ── PowerShell (Admin) ──
 	{sizeof(SHELLEXECUTEINFO),
 			SEE_MASK_DEFAULT,
 			nullptr,
@@ -193,33 +179,26 @@ SHELLEXECUTEINFO CmdInfo[CMD_END] = {
 			_T("powershell.exe"),
 			_T("-NoExit -Command cd "),
 			NULL,
-			SW_SHOW,
-			nullptr,
-			nullptr,
-			nullptr,
-			nullptr},
-	{sizeof(SHELLEXECUTEINFO),
-			SEE_MASK_DEFAULT,
-			nullptr,
-			_T("runas"),
-			_T("psexec.exe"),
-			_T("-s powershell -w Normal "),
-			NULL,
-			SW_SHOW,
-			nullptr,
-			nullptr,
-			nullptr,
-			nullptr},
-			{sizeof(SHELLEXECUTEINFO),
-			SEE_MASK_DEFAULT,
-			nullptr,
-			_T("open"),
-			_T("wt.exe"),
-			_T(""),
-			NULL,
-			SW_SHOW,
-			nullptr,
-			nullptr,
-			nullptr,
-			nullptr}
+			SW_SHOW 
+	},
+	// ── PowerShell (System) ──
+{sizeof(SHELLEXECUTEINFO),
+		SEE_MASK_DEFAULT,
+		nullptr,
+		_T("runas"),
+		_T("psexec.exe"),
+		_T("-s powershell -w Normal "),
+		NULL,
+		SW_SHOW 
+},
+// ── Windows Terminal ──
+		{sizeof(SHELLEXECUTEINFO),
+		SEE_MASK_DEFAULT,
+		nullptr,
+		_T("open"),
+		_T("wt.exe"),
+		_T(""),
+		NULL,
+		SW_SHOW
+		}
 };

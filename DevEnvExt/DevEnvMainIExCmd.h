@@ -8,7 +8,8 @@
 #include "resource.h"       // 主符号
 #include "DevEnvExt_i.h"
 #include "DevEnvSubIExCmd.h"
-
+#include "staticinfo_storage.h"
+#include <ShObjIdl_core.h>
 
 
 #if defined(_WIN32_WCE) && !defined(_CE_DCOM) && !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)
@@ -49,7 +50,7 @@ DECLARE_PROTECT_FINAL_CONSTRUCT()
 private:
 	size_t m_currentIndex = 0;
 	std::vector<CComPtr<CDevEnvSubIExCmd>> m_subCommands;
-	wchar_t modulePath[MAX_PATH];
+	wchar_t modulePath[MAX_PATH]={};
 public:
 	//init
 	static void space(){}
@@ -73,6 +74,7 @@ public:
 			if (FAILED(hr))
 				continue;
 			pRaw->set_m_size(i); // 传递参数，菜单索引
+			pRaw->SetModulePath(modulePath);
 			// CComPtr 构造函数会 AddRef，refcount: 0 → 1
 			CComPtr<CDevEnvSubIExCmd> pSubCmd(pRaw);
 			m_subCommands.push_back(pSubCmd);
@@ -91,10 +93,10 @@ public:
 	}
 	IFACEMETHOD(GetCanonicalName)(GUID* pguidCommandName)override { *pguidCommandName = GetObjectCLSID(); return S_OK; }
 	IFACEMETHOD(GetFlags)(EXPCMDFLAGS* pFlags)override { *pFlags = ECF_HASSUBCOMMANDS; return S_OK; }
-	IFACEMETHOD(GetIcon)(IShellItemArray* psiItemArray, LPWSTR* ppszIcon)override {
+	IFACEMETHOD(GetIcon)(IShellItemArray* psiItemArray, LPWSTR* ppszIcon) override {
 		wchar_t iconPath[MAX_PATH + 32] = {};
-		swprintf_s(iconPath, L"%s,-201", modulePath);
-		return SHStrDup(iconPath, ppszIcon);// 修正，图标暂时设置为空
+		swprintf_s(iconPath, L"%s,-204", modulePath); // 当前组件位置
+		return SHStrDup(iconPath, ppszIcon);
 	}
 	IFACEMETHOD(GetState)(IShellItemArray* psiItemArray, BOOL fOkToBeSlow, EXPCMDSTATE* pCmdState)override { *pCmdState = ECS_ENABLED; return S_OK; }
 	IFACEMETHOD(GetTitle)(IShellItemArray* psiItemArray, LPWSTR* ppszName) override { std::wstring titlename = _T("打开编程环境目录"); return SHStrDup(titlename.c_str(), ppszName); }

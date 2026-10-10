@@ -7,8 +7,8 @@
 #include "staticinfo_storage.h"
 #include "resource.h"       // 主符号
 #include <vector>
-
-
+#include <ShObjIdl_core.h>
+#include <wrl/client.h>
 #include "DevEnvExt_i.h"
 
 
@@ -23,10 +23,11 @@ using namespace ATL;
 // CDevEnvSubIExCmd
 
 class ATL_NO_VTABLE CDevEnvSubIExCmd :
-	public CComObjectRootEx<CComSingleThreadModel>,
+	public CComObjectRootEx<CComMultiThreadModel >,
 	public CComCoClass<CDevEnvSubIExCmd, &CLSID_DevEnvSubIExCmd>,
 	public IDispatchImpl<IDevEnvSubIExCmd, &IID_IDevEnvSubIExCmd, &LIBID_DevEnvExtLib, /*wMajor =*/ 1, /*wMinor =*/ 0>,
-	public IExplorerCommand
+	public IExplorerCommand,
+	public IObjectWithSite
 {
 public:
 DECLARE_REGISTRY_RESOURCEID(108)
@@ -38,20 +39,33 @@ END_COM_MAP()
 DECLARE_PROTECT_FINAL_CONSTRUCT()
 private:
 	size_t m_size_ = NULL;
+	std::wstring m_modulePath;
+	Microsoft::WRL::ComPtr<IUnknown>  m_site;
 public:
-	void set_m_size(size_t m_size) { m_size_ = m_size; }
-	// IExplorerCommand
+	void set_m_size(size_t m_size)	{this->m_size_ = m_size;}
+	void SetModulePath(const std::wstring& path) { m_modulePath = path; }
+	HRESULT GetBestLocationFromSelectionOrSite(
+	IShellItemArray* psiArray, IShellItem** location) const noexcept;
+	HRESULT GetLocationFromSite(IShellItem** location) const noexcept;
+	HRESULT GetFilePathFromShellItem(IShellItem* psi, PWSTR* pszPath) const noexcept;
+	IFACEMETHOD(DoInvoke)(IShellItem* psi);
+
+// IExplorerCommand
 	IFACEMETHOD(EnumSubCommands)(IEnumExplorerCommand** ppEnum) override { *ppEnum = nullptr; return E_NOTIMPL; }
 	IFACEMETHOD(GetCanonicalName)(GUID* pguidCommandName) { *pguidCommandName = IExCmdInfoRegistry[m_size_].guid; return S_OK; }
 	IFACEMETHOD(GetFlags)(EXPCMDFLAGS* pFlags) { *pFlags = IExCmdInfoRegistry[m_size_].flags; return S_OK; }
-	IFACEMETHOD(GetIcon)(IShellItemArray* psiItemArray, LPWSTR* ppszIcon) { return SHStrDup(IExCmdInfoRegistry[m_size_].icon, ppszIcon); }
+	IFACEMETHOD(GetIcon)(IShellItemArray* psiItemArray, LPWSTR* ppszIcon) { 
+		wchar_t iconPath[MAX_PATH + 32] = {};
+		if (IExCmdInfoRegistry[m_size_].icon)swprintf_s(iconPath, IExCmdInfoRegistry[m_size_].icon, m_modulePath.c_str()); // 当前组件位置
+		return SHStrDup(iconPath, ppszIcon);
+	}
 	IFACEMETHOD(GetState)(IShellItemArray* psiItemArray, BOOL fOkToBeSlow, EXPCMDSTATE* pCmdState) { *pCmdState = IExCmdInfoRegistry[m_size_].state; return S_OK; }
 	IFACEMETHOD(GetTitle)(IShellItemArray* psiItemArray, LPWSTR* ppszName) { std::wstring titlename = IExCmdInfoRegistry[m_size_].title; return SHStrDup(titlename.c_str(), ppszName); }
 	IFACEMETHOD(GetToolTip)(IShellItemArray* psiItemArray, LPWSTR* ppszInfotip) { std::wstring tooltip = IExCmdInfoRegistry[m_size_].tooltip; return SHStrDup(tooltip.c_str(), ppszInfotip); }
 	IFACEMETHOD(Invoke)(IShellItemArray* psiItemArray, IBindCtx* pbc) override;
-
-
-
+	// IObjectWithSite
+	IFACEMETHOD(GetSite)(REFIID riid, void** ppvSite) override;
+	IFACEMETHOD(SetSite)(IUnknown* pUnkSite) override;
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(DevEnvSubIExCmd), CDevEnvSubIExCmd)
