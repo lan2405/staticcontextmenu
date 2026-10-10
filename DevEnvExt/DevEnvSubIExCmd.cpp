@@ -49,44 +49,47 @@ HRESULT CDevEnvSubIExCmd::GetLocationFromSite(IShellItem** location) const noexc
 	return folderView->GetFolder(IID_PPV_ARGS(location));
 }
 
+HRESULT CDevEnvSubIExCmd::GetFilePathFromShellItem(IShellItem* psi, PWSTR* pszPath) const noexcept
+{
+	if (!psi) return E_INVALIDARG;
+	if (!pszPath) return E_POINTER;
+
+	*pszPath = nullptr;
+
+	PWSTR pszName = nullptr;
+
+	// 优先获取文件系统路径
+	HRESULT hr = psi->GetDisplayName(SIGDN_FILESYSPATH, &pszName);
+	if (SUCCEEDED(hr))
+	{
+		*pszPath = pszName;
+		return S_OK;
+	}
+
+	// 回退：桌面绝对路径
+	hr = psi->GetDisplayName(SIGDN_DESKTOPABSOLUTEPARSING, &pszName);
+	if (SUCCEEDED(hr))
+	{
+		*pszPath = pszName;
+		return S_OK;
+	}
+
+	// 最后回退：常规显示名
+	hr = psi->GetDisplayName(SIGDN_NORMALDISPLAY, &pszName);
+	if (SUCCEEDED(hr))
+	{
+		*pszPath = pszName;
+		return S_OK;
+	}
+
+	return E_FAIL;
+}
+
 IFACEMETHODIMP CDevEnvSubIExCmd::DoInvoke(IShellItem* psi)
 {
 	// 获取文件系统路径
 	PWSTR pszPath = nullptr;
 	HRESULT hr = GetFilePathFromShellItem(psi, &pszPath);
-	if (FAILED(hr) || !pszPath)
-	{
-		// 无法获取路径（可能是虚拟命名空间对象）
-		return E_FAIL;
-	}
-
-	// 检查是否为文件夹（背景右键时psi就是文件夹）
-	if (!IsFolder(psi))
-	{
-		// 如果是文件，获取其父目录
-		Microsoft::WRL::ComPtr<IShellItem> psiParent;
-		hr = psi->GetParent(psiParent.GetAddressOf());
-		if (SUCCEEDED(hr) && psiParent)
-		{
-			PWSTR pszParentPath = nullptr;
-			hr = GetFilePathFromShellItem(psiParent.Get(), &pszParentPath);
-			if (SUCCEEDED(hr) && pszParentPath)
-			{
-				CoTaskMemFree(pszPath);
-				pszPath = pszParentPath;
-			}
-			else
-			{
-				CoTaskMemFree(pszPath);
-				return E_FAIL;
-			}
-		}
-		else
-		{
-			CoTaskMemFree(pszPath);
-			return E_FAIL;
-		}
-	}
 }
 
 
