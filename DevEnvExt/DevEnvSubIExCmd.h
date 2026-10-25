@@ -44,10 +44,13 @@ private:
 public:
 	void set_m_size(size_t m_size)	{this->m_size_ = m_size;}
 	void SetModulePath(const std::wstring& path) { m_modulePath = path; }
-	HRESULT GetBestLocationFromSelectionOrSite(
-	IShellItemArray* psiArray, IShellItem** location) const noexcept;
+	// 双通道目录获取
+	HRESULT GetBestLocationFromSelectionOrSite(IShellItemArray* psiArray, IShellItem** location) const noexcept;
+	// Site通道实现目录获取
 	HRESULT GetLocationFromSite(IShellItem** location) const noexcept;
+	// 目录字符串获取
 	HRESULT GetFilePathFromShellItem(IShellItem* psi, PWSTR* pszPath) const noexcept;
+	// 命令执行
 	IFACEMETHOD(DoInvoke)(IShellItem* psi);
 
 // IExplorerCommand
@@ -64,8 +67,8 @@ public:
 	IFACEMETHOD(GetToolTip)(IShellItemArray* psiItemArray, LPWSTR* ppszInfotip) { std::wstring tooltip = IExCmdInfoRegistry[m_size_].tooltip; return SHStrDup(tooltip.c_str(), ppszInfotip); }
 	IFACEMETHOD(Invoke)(IShellItemArray* psiItemArray, IBindCtx* pbc) override;
 	// IObjectWithSite
-	IFACEMETHOD(GetSite)(REFIID riid, void** ppvSite) override;
-	IFACEMETHOD(SetSite)(IUnknown* pUnkSite) override;
+	IFACEMETHOD(GetSite)(REFIID riid, void** ppvSite) override { return m_site->QueryInterface(riid, ppvSite);}
+	IFACEMETHOD(SetSite)(IUnknown* pUnkSite) override {	m_site = pUnkSite;	return S_OK;}
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(DevEnvSubIExCmd), CDevEnvSubIExCmd)

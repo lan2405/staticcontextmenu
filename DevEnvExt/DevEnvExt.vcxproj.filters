@@ -112,6 +112,7 @@
     <None Include="DevEnvSubIExCmd.rgs">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="DevEnvExt.idl">

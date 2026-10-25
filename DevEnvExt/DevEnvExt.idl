@@ -24,7 +24,7 @@ interface IComponentRegistrar : IDispatch
 };
 
 [
-	object,
+	0,
 	uuid(5fa3a644-b914-4b09-a238-b9287238bd6e),
 	dual,
 	nonextensible,
@@ -91,6 +91,4 @@ library DevEnvExtLib
 	};
 };
 
-import "shobjidl.idl";
-import "shobjidl.idl";
 import "shobjidl.idl";
