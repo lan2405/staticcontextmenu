@@ -6,94 +6,93 @@
 
 
 // CDevEnvSubIExCmd
+HRESULT CDevEnvSubIExCmd::GetLocationFromSite(IShellItem** location) const noexcept
+{
+	wil::assign_null_to_opt_param(location);
+
+	if (!site_)
+	{
+		return S_FALSE;
+	}
+
+	wil::com_ptr_nothrow<IServiceProvider> serviceProvider;
+	RETURN_IF_FAILED(site_.query_to(serviceProvider.put()));
+	wil::com_ptr_nothrow<IFolderView> folderView;
+	RETURN_IF_FAILED(serviceProvider->QueryService(SID_SFolderView, IID_PPV_ARGS(folderView.put())));
+	RETURN_IF_FAILED(folderView->GetFolder(IID_PPV_ARGS(location)));
+	return S_OK;
+}
+
+HRESULT CDevEnvSubIExCmd::GetBestLocationFromSelectionOrSite(IShellItemArray* psiArray,
+	IShellItem** location) const noexcept
+{
+	wil::com_ptr_nothrow<IShellItem> psi;
+	if (psiArray)
+	{
+		DWORD count{};
+		RETURN_IF_FAILED(psiArray->GetCount(&count));
+		if (count) // Sometimes we get an array with a count of 0. Fall back to the site chain.
+		{
+			RETURN_IF_FAILED(psiArray->GetItemAt(0, psi.put()));
+		}
+	}
+
+	if (!psi)
+	{
+		RETURN_IF_FAILED(GetLocationFromSite(psi.put()));
+	}
+
+	RETURN_HR_IF(S_FALSE, !psi);
+	RETURN_IF_FAILED(psi.copy_to(location));
+	return S_OK;
+}
+
 
 IFACEMETHODIMP CDevEnvSubIExCmd::Invoke (IShellItemArray* psiItemArray, IBindCtx* pbc)
 {
-	// ========================================================================
-	// 一、参数校验
-	// ========================================================================
-	if (!psiItemArray)
-		return E_INVALIDARG;
+	//const auto runElevated = IsControlAndShiftPressed();
 
-	// ========================================================================
-	// 二、从 psiItemArray 获取选中项数量
-	// ========================================================================
-	DWORD dwCount = 0;
-	HRESULT hr = psiItemArray->GetCount(&dwCount);
-	if (FAILED(hr) || dwCount == 0)
-		return S_OK; // 没有选中项，静默返回
-	// ========================================================================
-	// 三、方式一：通过 GetItemAt 按索引遍历（推荐，简单直观）
-	// ========================================================================
-	std::vector<std::wstring> filePaths;
-	filePaths.reserve(dwCount);
-
-	for (DWORD i = 0; i < dwCount; ++i)
+	wil::com_ptr_nothrow<IShellItem> psi;
+	GetBestLocationFromSelectionOrSite(psiItemArray, psi.put());
+	if (!psi)
 	{
-		CComPtr<IShellItem> psi;
-		hr = psiItemArray->GetItemAt(i, &psi);
-		if (FAILED(hr) || !psi)
-			continue;
-
-		// ------ 3.1 获取文件系统完整路径（最常用） ------
-		PWSTR pszPath = nullptr;
-		hr = psi->GetDisplayName(SIGDN_FILESYSPATH, &pszPath);
-		if (SUCCEEDED(hr) && pszPath)
-		{
-			filePaths.emplace_back(pszPath);
-			CoTaskMemFree(pszPath); // 必须释放！
-		}
-		else
-		{
-			// 非文件系统项（如虚拟文件夹），回退获取显示名称
-			PWSTR pszName = nullptr;
-			hr = psi->GetDisplayName(SIGDN_NORMALDISPLAY, &pszName);
-			if (SUCCEEDED(hr) && pszName)
-			{
-				filePaths.emplace_back(pszName);
-				CoTaskMemFree(pszName);
-			}
-		}
-
-		// ------ 3.2 获取项的属性标志（判断是文件还是文件夹） ------
-		SFGAOF sfgaoAttrs = 0;
-		hr = psi->GetAttributes(
-			SFGAO_FOLDER | SFGAO_FILESYSTEM | SFGAO_LINK,
-			&sfgaoAttrs);
-		if (SUCCEEDED(hr))
-		{
-			bool bIsFolder = (sfgaoAttrs & SFGAO_FOLDER) != 0;
-			bool bIsFileSystem = (sfgaoAttrs & SFGAO_FILESYSTEM) != 0;
-			bool bIsLink = (sfgaoAttrs & SFGAO_LINK) != 0;
-			// 可根据 bIsFolder / bIsFileSystem / bIsLink 做分支处理
-		}
+		return S_FALSE;
 	}
-	
+
+	wil::unique_cotaskmem_string pszName;
+	RETURN_IF_FAILED(psi->GetDisplayName(SIGDN_FILESYSPATH, &pszName));
+
 	SHELLEXECUTEINFO Commandinfo = CmdInfo[m_size_];
 	std::wstring parm;
-	for (const auto& path : filePaths)
+	std::wstring path = pszName.get();
+	switch (m_size_)
 	{
-		switch (m_size_)
-		{
-		case CMD_PowerShell_Admin:
-			parm = L"-NoExit -WorkingDirectory \"" + path + L"\"";
-			Commandinfo.lpParameters = parm.c_str();
-			break;
-		case CMD_PowerShell_System:
-			parm = L"-w \""+path+L"\" -s powershell -w Normal ";
-			Commandinfo.lpParameters = parm.c_str();
-			break;
-		default:
-			break;
-		}
-		Commandinfo.lpDirectory = path.c_str();
-		if (!ShellExecuteEx(&Commandinfo))
-		{
-
-			return E_FAIL;
-		}
+	case CMD_VisualStudio:
+		parm = L"\"" + path + L"\" source:ExplorerBackground";
+		Commandinfo.lpParameters = parm.c_str();
+		break;
+	case CMD_VSCode:
+		Commandinfo.lpParameters = path.c_str();
+		break;
+	case CMD_WindowsTerminal:
+		Commandinfo.lpParameters = path.c_str();
+		break;
+	case CMD_PowerShell_Admin:
+		parm = L"-NoExit -WorkingDirectory \"" + path + L"\"";
+		Commandinfo.lpParameters = parm.c_str();
+		break;
+	case CMD_PowerShell_System:
+		parm = L"-w \"" + path + L"\" -s powershell -w Normal ";
+		Commandinfo.lpParameters = parm.c_str();
+		break;
+	default:
+		break;
 	}
-	
+	Commandinfo.lpDirectory = path.c_str();
+	if (!ShellExecuteEx(&Commandinfo))
+	{
+		return E_FAIL;
+	}
 	return S_OK;
 }
 

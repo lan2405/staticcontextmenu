@@ -93,7 +93,7 @@ public:
 	IFACEMETHOD(GetFlags)(EXPCMDFLAGS* pFlags)override { *pFlags = ECF_HASSUBCOMMANDS; return S_OK; }
 	IFACEMETHOD(GetIcon)(IShellItemArray* psiItemArray, LPWSTR* ppszIcon)override {
 		wchar_t iconPath[MAX_PATH + 32] = {};
-		swprintf_s(iconPath, L"%s,-201", modulePath);
+		swprintf_s(iconPath, L"%s,-203", modulePath);
 		return SHStrDup(iconPath, ppszIcon);// 修正，图标暂时设置为空
 	}
 	IFACEMETHOD(GetState)(IShellItemArray* psiItemArray, BOOL fOkToBeSlow, EXPCMDSTATE* pCmdState)override { *pCmdState = ECS_ENABLED; return S_OK; }

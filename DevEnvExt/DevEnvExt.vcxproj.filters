@@ -43,9 +43,6 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="EnvExt.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="DevEnvMainIExCmd.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -78,9 +75,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="EnvExt.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="DevEnvMainIExCmd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -103,15 +97,13 @@
     <None Include="DevEnvExt.def">
       <Filter>源文件</Filter>
     </None>
-    <None Include="EnvExt.rgs">
-      <Filter>资源文件</Filter>
-    </None>
     <None Include="DevEnvMainIExCmd.rgs">
       <Filter>资源文件</Filter>
     </None>
     <None Include="DevEnvSubIExCmd.rgs">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="DevEnvExt.idl">
@@ -119,10 +111,10 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\environment\图标文件workspace\新建文件夹\J.ico">
+    <Image Include="J.ico">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="C:\environment\图标文件workspace\新建文件夹\J.png">
+    <Image Include="J.png">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
