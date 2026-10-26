@@ -23,16 +23,7 @@ interface IComponentRegistrar : IDispatch
 	[id(6)] HRESULT UnregisterComponent([in] BSTR bstrCLSID);
 };
 
-[
-	0,
-	uuid(5fa3a644-b914-4b09-a238-b9287238bd6e),
-	dual,
-	nonextensible,
-	pointer_default(unique)
-]
-interface IEnvExt : IDispatch
-{
-};
+
 [
 	object,
 	uuid(a543368f-122b-4808-ad8a-2149bf4b7261),
@@ -69,13 +60,6 @@ library DevEnvExtLib
 		[default] interface IComponentRegistrar;
 	};
 	[
-		uuid(5eb407cd-a1d4-436a-8974-e07a41c9fff2)
-	]
-	coclass EnvExt
-	{
-		[default] interface IEnvExt;
-	};
-	[
 		uuid(a3c78550-d312-44be-84c6-1f2f858b5241)
 	]
 	coclass DevEnvMainIExCmd
@@ -91,4 +75,6 @@ library DevEnvExtLib
 	};
 };
 
+import "shobjidl.idl";
+import "shobjidl.idl";
 import "shobjidl.idl";

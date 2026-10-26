@@ -4,106 +4,67 @@
 #include "DevEnvSubIExCmd.h"
 
 
-HRESULT CDevEnvSubIExCmd::GetBestLocationFromSelectionOrSite(IShellItemArray* psiArray,
-	IShellItem** location) const noexcept
-{
-	Microsoft::WRL::ComPtr<IShellItem> psi;
-	// 通道1：从psiItemArray取选中项
-	if (psiArray)
-	{
-		DWORD count{};
-		if (SUCCEEDED(psiArray->GetCount(&count)) && count > 0)
-		{
-			for (DWORD i = 0; i < count; ++i)
-			{
-				Microsoft::WRL::ComPtr<IShellItem> item;
-				if (SUCCEEDED(psiArray->GetItemAt(i, item.GetAddressOf())))
-				{
-					DoInvoke(item.Get());
-				}
-			}
-
-			
-		}
-	}
-	// 通道2：psiItemArray为空或无效时，回退到Site
-	if (!psi)
-	{
-		if (FAILED(GetLocationFromSite(psi.GetAddressOf())))
-		{
-			return S_FALSE;
-		}
-	}
-	if (!psi)
-		return S_FALSE;
-	return psi.CopyTo(location);
-}
 
 // CDevEnvSubIExCmd
 HRESULT CDevEnvSubIExCmd::GetLocationFromSite(IShellItem** location) const noexcept
 {
-	if (!m_site)
+	wil::assign_null_to_opt_param(location);
+
+	if (!site_)
+	{
 		return S_FALSE;
+	}
 
-	Microsoft::WRL::ComPtr<IServiceProvider> serviceProvider;
-	HRESULT hr = m_site->QueryInterface(IID_PPV_ARGS(serviceProvider.GetAddressOf()));
-	if (FAILED(hr))
-		return hr;
-
-	Microsoft::WRL::ComPtr<IFolderView> folderView;
-	hr = serviceProvider->QueryService(
-		SID_SFolderView, IID_PPV_ARGS(folderView.GetAddressOf()));
-	if (FAILED(hr))
-		return hr;
-
-	return folderView->GetFolder(IID_PPV_ARGS(location));
+	wil::com_ptr_nothrow<IServiceProvider> serviceProvider;
+	RETURN_IF_FAILED(site_.query_to(serviceProvider.put()));
+	wil::com_ptr_nothrow<IFolderView> folderView;
+	RETURN_IF_FAILED(serviceProvider->QueryService(SID_SFolderView, IID_PPV_ARGS(folderView.put())));
+	RETURN_IF_FAILED(folderView->GetFolder(IID_PPV_ARGS(location)));
+	return S_OK;
 }
 
-HRESULT CDevEnvSubIExCmd::GetFilePathFromShellItem(IShellItem* psi, PWSTR* pszPath) const noexcept
+HRESULT CDevEnvSubIExCmd::GetBestLocationFromSelectionOrSite(IShellItemArray* psiArray,
+	IShellItem** location) const noexcept
 {
-	if (!psi) return E_INVALIDARG;
-	if (!pszPath) return E_POINTER;
-
-	*pszPath = nullptr;
-
-	PWSTR pszName = nullptr;
-
-	// 优先获取文件系统路径
-	HRESULT hr = psi->GetDisplayName(SIGDN_FILESYSPATH, &pszName);
-	if (SUCCEEDED(hr))
+	wil::com_ptr_nothrow<IShellItem> psi;
+	if (psiArray)
 	{
-		*pszPath = pszName;
-		return S_OK;
+		DWORD count{};
+		RETURN_IF_FAILED(psiArray->GetCount(&count));
+		if (count) // Sometimes we get an array with a count of 0. Fall back to the site chain.
+		{
+			RETURN_IF_FAILED(psiArray->GetItemAt(0, psi.put()));
+		}
 	}
 
-	// 回退：桌面绝对路径
-	hr = psi->GetDisplayName(SIGDN_DESKTOPABSOLUTEPARSING, &pszName);
-	if (SUCCEEDED(hr))
+	if (!psi)
 	{
-		*pszPath = pszName;
-		return S_OK;
+		RETURN_IF_FAILED(GetLocationFromSite(psi.put()));
 	}
 
-	// 最后回退：常规显示名
-	hr = psi->GetDisplayName(SIGDN_NORMALDISPLAY, &pszName);
-	if (SUCCEEDED(hr))
-	{
-		*pszPath = pszName;
-		return S_OK;
-	}
-
-	return E_FAIL;
+	RETURN_HR_IF(S_FALSE, !psi);
+	RETURN_IF_FAILED(psi.copy_to(location));
+	return S_OK;
 }
 
-IFACEMETHODIMP CDevEnvSubIExCmd::DoInvoke(IShellItem* psi)
+
+IFACEMETHODIMP CDevEnvSubIExCmd::Invoke (IShellItemArray* psiItemArray, IBindCtx* pbc)
 {
-	// 获取文件系统路径
-	PWSTR pszPath = nullptr;
-	HRESULT hr = GetFilePathFromShellItem(psi, &pszPath);
+	//const auto runElevated = IsControlAndShiftPressed();
+
+	wil::com_ptr_nothrow<IShellItem> psi;
+	GetBestLocationFromSelectionOrSite(psiItemArray, psi.put());
+	if (!psi)
+	{
+		return S_FALSE;
+	}
+
+	wil::unique_cotaskmem_string pszName;
+	RETURN_IF_FAILED(psi->GetDisplayName(SIGDN_FILESYSPATH, &pszName));
 
 	SHELLEXECUTEINFO Commandinfo = CmdInfo[m_size_];
 	std::wstring parm;
-	std::wstring path = pszPath;
+	std::wstring path = pszName.get();
 	switch (m_size_)
 	{
 	case CMD_VisualStudio:
@@ -134,17 +95,5 @@ IFACEMETHODIMP CDevEnvSubIExCmd::DoInvoke(IShellItem* psi)
 	}
 	return S_OK;
 }
-
-
-IFACEMETHODIMP CDevEnvSubIExCmd::Invoke(IShellItemArray* psiItemArray, IBindCtx* pbc)
-{
-	Microsoft::WRL::ComPtr<IShellItem> psi;
-	HRESULT hr = GetBestLocationFromSelectionOrSite(psiItemArray, psi.GetAddressOf());
-	if (FAILED(hr) || !psi)
-		return S_FALSE;
-	// return DoInvoke(psi.Get());
-	return S_OK;
-}
-
 
 
