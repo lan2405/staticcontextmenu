@@ -17,7 +17,7 @@
 	<Identity
 	  Name="DevelopExec"
 	  Publisher="CN=devptx"
-	  Version="1.0.76.0" />
+	  Version="1.0.77.0" />
 
 	<Properties>
 		<DisplayName>WapProjTemplate1</DisplayName>

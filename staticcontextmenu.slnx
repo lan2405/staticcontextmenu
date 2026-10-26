@@ -6,28 +6,13 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="DevEnva/DevEnva (Package)/DevEnva (Package).wapproj" Type="c7167f0d-bc9f-4e6e-afe1-012c56b48db5" Id="9830474e-0dc9-4e09-9ddb-5b640262c224">
-    <Platform Solution="*|Any CPU" Project="x64" />
-    <Platform Solution="*|ARM" Project="x64" />
-    <Deploy />
-  </Project>
-  <Project Path="DevEnva/DevEnva/DevEnva.csproj" Id="29fa0873-19db-40f2-9814-cdd7dc653877">
-    <Platform Solution="*|Any CPU" Project="x64" />
-    <Platform Solution="*|ARM" Project="x64" />
-    <Platform Solution="*|ARM64" Project="ARM64" />
-    <Platform Solution="*|x64" Project="x64" />
-    <Platform Solution="*|x86" Project="x86" />
-  </Project>
+  <Folder Name="/test/" />
   <Project Path="DevEnvExt/DevEnvExt.vcxproj">
     <Platform Solution="*|ARM" Project="x64" />
     <Platform Solution="*|ARM64" Project="x64" />
   </Project>
   <Project Path="DevEnvPrejectForkaiwinnow/DevEnvPrejectForkaiwinnow.wapproj" Type="c7167f0d-bc9f-4e6e-afe1-012c56b48db5" Id="cc96a397-5312-4fc0-bd40-31c2e0d6d3e8">
     <Deploy />
-  </Project>
-  <Project Path="DevEnvSettingsUI/DevEnvSettingsUI.vcxproj" Id="d9735450-dbe0-40f5-8de6-68fd553274eb">
-    <Platform Solution="*|ARM" Project="x64" />
-    <Platform Solution="*|ARM64" Project="x64" />
   </Project>
   <Project Path="DllRegExt/DllRegExt.vcxproj">
     <Platform Solution="*|ARM" Project="x64" />
